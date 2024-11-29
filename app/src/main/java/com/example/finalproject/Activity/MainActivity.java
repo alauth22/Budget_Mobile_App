@@ -52,14 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         //find the actual button based off of it's ID from the activity_main
         Button button = findViewById(R.id.Budget);
-        Income = findViewById(R.id.ViewIncome);
         Remaining = findViewById(R.id.ViewRemaining);
 
 
-        // Fetch and display the income
-        String income = dbAssist.getIncome();
-        TextView incomeTextView = findViewById(R.id.ViewRemaining); // Make sure this ID exists in your layout
-        incomeTextView.setText("Income: $" + income);
 
 
 
@@ -135,6 +130,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String updatedIncome = dbAssist.getIncome(); // Query the database for the income
+        TextView incomeTextView = findViewById(R.id.ViewRemaining);
+        incomeTextView.setText("Income: $" + updatedIncome);
+    }
 
     private void PickTextFile()
     {
