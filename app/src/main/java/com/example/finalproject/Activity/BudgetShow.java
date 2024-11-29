@@ -61,20 +61,6 @@ public class BudgetShow extends AppCompatActivity {
 
 
             tv = findViewById(R.id.BudgetView);
-            updateBudgetView();
-
-
-            //my button
-            RefreshButton = findViewById(R.id.RefreshData);
-            RefreshButton.setOnClickListener(view -> {
-                sound3.start();
-                updateBudgetView();
-
-                // Show a Toast to indicate refresh was successful
-                Toast.makeText(BudgetShow.this, "Budget Refreshed", Toast.LENGTH_SHORT).show();
-
-            });
-
 
             //code for arrow button
             ImageView arrow1 = findViewById(R.id.backArrow1);
@@ -100,15 +86,12 @@ public class BudgetShow extends AppCompatActivity {
             });
     }
 
-    public String getIncome() {
-        String income = "";
-        Cursor res = db.getData();
-        if(res != null && res.moveToNext()) {
-            income = res.getString(1);
-        }
-        return income;
-    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateBudgetView();
+    }
 
 
     private void updateBudgetView() {
