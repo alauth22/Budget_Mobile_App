@@ -64,9 +64,6 @@ public class BudgetShow extends AppCompatActivity {
             updateBudgetView();
 
 
-
-
-
             //my button
             RefreshButton = findViewById(R.id.RefreshData);
             RefreshButton.setOnClickListener(view -> {

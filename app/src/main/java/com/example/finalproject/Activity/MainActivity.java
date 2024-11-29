@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finalproject.Database.DBAssist;
+import com.example.finalproject.Database.DBHelper;
 import com.example.finalproject.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,13 +25,13 @@ public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer sound1;
 
-    Button view;
+    Button Home;
     DBAssist dbAssist;
+    DBHelper dbHelper;
     double totalSpent, remainingAmount;
 
-
-    //put in button sounds
-    //finish up SQLite | Focus on the Spent class and try to get those two double values spent and remaining.
+    //SD DOWNLOADS
+    private final int SelectVideo = 1;
 
 
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dbAssist = new DBAssist(this);
-        //Income.setText(dbAssist.getIncome());
+        dbHelper = new DBHelper(this);
 
         sound1 = MediaPlayer.create(this, R.raw.dot);
 
@@ -55,13 +56,10 @@ public class MainActivity extends AppCompatActivity {
         Remaining = findViewById(R.id.ViewRemaining);
 
 
-        // Get the totalSpent and remainingAmount passed from Spent activity
-//        totalSpent = getIntent().getDoubleExtra("totalSpent", 0.0);
-//        remainingAmount = getIntent().getDoubleExtra("remainingAmount", 0.0);
-//
-//        Spent.setText("Spent: $" + String.format("%.2f", totalSpent));
-//        // Update the RemainingAmount text
-//        Remaining.setText("Remaining: $" + String.format("%.2f", remainingAmount));
+        // Fetch and display the income
+        String income = dbAssist.getIncome();
+        TextView incomeTextView = findViewById(R.id.ViewRemaining); // Make sure this ID exists in your layout
+        incomeTextView.setText("Income: $" + income);
 
 
 
@@ -125,5 +123,29 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
+        findViewById(R.id.sdDownloads).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickTextFile();
+            }
+        });
+
     }
+
+
+    private void PickTextFile()
+    {
+        Intent video = new Intent();
+        video.setType("application/pdf");
+        //allow document access
+        video.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        startActivityForResult(Intent.createChooser(video, "Select Text Files"), SelectVideo);
+
+    }
+
+
+
 }

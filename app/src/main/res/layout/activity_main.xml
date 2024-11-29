@@ -37,7 +37,7 @@
 
 
         <Button
-            android:id="@+id/Home"
+            android:id="@+id/sdDownloads"
             android:layout_width="121dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

@@ -191,6 +191,11 @@ public class Spent extends AppCompatActivity {
 
                 if (isUpdated) {
                     Toast.makeText(this, "Successfully spent $" + amountSpent + " on " + expenseFinal, Toast.LENGTH_SHORT).show();
+                    //might want to move this to a different place so that it will automatically display
+//                    Intent intent = new Intent(Spent.this, MainActivity.class);
+//                    intent.putExtra("remainingIncome", income);
+//                    startActivity(intent);
+//                    finish();
                 } else {
                     Toast.makeText(this, "Failed to update the database!", Toast.LENGTH_SHORT).show();
                 }
@@ -205,20 +210,6 @@ public class Spent extends AppCompatActivity {
             cursor.close();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
