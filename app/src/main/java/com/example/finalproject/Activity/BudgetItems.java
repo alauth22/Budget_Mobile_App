@@ -377,12 +377,18 @@ public class BudgetItems extends AppCompatActivity {
                 if (total > income) {
                     Toast.makeText(BudgetItems.this, "Total exceeds income. Please adjust the values.", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
-                    //proceed to updating the database.
+                }
+                else
+                {
+                    //if we are able to actually update the database without error then we are good.
                     Boolean checkupdatedata = db.updateData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT, RetirementTXT);
+                    //send a good message
                     if (checkupdatedata == true) {
                         Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
-                    } else {
+                    }
+                    //else if it is not then send a bad message
+                    else
+                    {
                         Toast.makeText(BudgetItems.this, "Entry Not Updated.", Toast.LENGTH_SHORT).show();
                     }
 
