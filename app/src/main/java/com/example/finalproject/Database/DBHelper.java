@@ -59,41 +59,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-
-//    public Boolean insertData(String income, String rent, String utilities, String phone, String internet, String gym, String food, String gas, String insurance, String carLoan, String studentLoan, String charity, String emergencyFund, String savings, String retirement) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//
-//        //primary key make it Autoincrement and it will always be 1.
-//
-//        contentValues.put("Income", income);
-//        contentValues.put("Rent", rent);
-//        contentValues.put("Utilities", utilities);
-//        contentValues.put("Phone", phone);
-//        contentValues.put("Internet", internet);
-//        contentValues.put("Gym", gym);
-//        contentValues.put("Food", food);
-//        contentValues.put("Gas", gas);
-//        contentValues.put("Insurance", insurance);
-//        contentValues.put("CarLoan", carLoan);
-//        contentValues.put("StudentLoan", studentLoan);
-//        contentValues.put("Charity", charity);
-//        contentValues.put("EmergencyFund", emergencyFund);
-//        contentValues.put("Savings", savings);
-//        contentValues.put("Retirement", retirement);
-//        //conflict replace will ensure only one row exists, if an entyr with the same income key exists it will overwrite it.
-//        long result = db.insertWithOnConflict("Budget", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
-//        Log.d("DB_Insert", "Insert Result: " + result);
-//        if (result == -1) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//
-//    }
-
-
-
     public Boolean updateData (int BudgetID, String income, String rent, String utilities, String phone, String internet, String gym, String food, String gas, String insurance, String carLoan, String studentLoan, String charity, String emergencyFund, String savings, String retirement) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -130,24 +95,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-//    public Boolean deleteData (String income) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM Budget WHERE BudgetID = ?", new String[]{"1"});
-//        if (cursor.getCount() > 0) {
-//            long result = db.delete("Budget", "BudgetID=?", new String[]{"1"});
-//            if (result == -1) {
-//                return false;
-//            } else {
-//                return true;
-//            }
-//
-//        } else {
-//            return false;
-//        }
-//
-//    }
-
-
     //method to update the database and set all the values back to blank.
     public boolean resetData() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -177,15 +124,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-
-
     public Cursor getData() {
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM Budget", null);
         return cursor;
     }
-
 
 
 }
