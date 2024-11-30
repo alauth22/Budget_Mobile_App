@@ -41,4 +41,6 @@
     <string name="view">View</string>
     <string name="refresh">Refresh</string>
     <string name="refresh_budget">Refresh Budget</string>
+    <string name="empty" />
+    <string name="dollarsign">$</string>
 </resources>

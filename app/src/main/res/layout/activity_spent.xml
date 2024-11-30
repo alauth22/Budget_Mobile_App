@@ -12,7 +12,7 @@
         android:layout_width="56dp"
         android:layout_height="53dp"
         android:gravity="center"
-        android:text="$"
+        android:text="@string/dollarsign"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/AmountSpent"
         android:layout_width="304dp"
         android:layout_height="57dp"
-        android:text=" "
+        android:text="@string/empty"
         android:ems="10"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,7 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="61dp"
             android:dropDownHeight="800dp"
-            android:inputType="none" />
+            android:inputType="none"
+            tools:ignore="LabelFor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
