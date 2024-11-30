@@ -85,34 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-        //myDB = new MyDatabaseHelper(MainActivity.this);
-
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Cursor res = myDB.getData();
-//                if (res.getCount() == 0) {
-//                    Toast.makeText(MainActivity.this, "No Data", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                StringBuffer buffer = new StringBuffer();
-//                while(res.moveToNext()) {
-//                   buffer.append("Rent Amount: " + res.getString(2));
-//                }
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                builder.setCancelable(true);
-//                builder.setTitle("Data");
-//                builder.setMessage(buffer.toString());
-//                builder.show();
-//
-//
-//            }
-//        });
-
-
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

@@ -22,8 +22,6 @@ import com.example.finalproject.R;
 
 public class BudgetItems extends AppCompatActivity {
 
-
-    private MediaPlayer sound1;
     private MediaPlayer sound2;
 
     EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings, Retirement;
@@ -45,12 +43,10 @@ public class BudgetItems extends AppCompatActivity {
 
         db = DBSingleton.getInstance(this);
 
-        sound1 = MediaPlayer.create(this, R.raw.swordswing);
         sound2 = MediaPlayer.create(this, R.raw.clickbutton);
 
         ImageView arrow1 = findViewById(R.id.backArrow3);
         arrow1.setOnClickListener(v -> {
-            sound1.start();
             finish();
         });
 

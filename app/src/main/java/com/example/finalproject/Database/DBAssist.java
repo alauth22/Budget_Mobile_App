@@ -3,9 +3,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.widget.Toast;
 
-
-
-
 public class DBAssist {
 
     //get my DBHelper class instantiated

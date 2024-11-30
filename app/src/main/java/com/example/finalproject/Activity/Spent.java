@@ -28,7 +28,6 @@ import android.content.SharedPreferences;
 public class Spent extends AppCompatActivity {
 
     private MediaPlayer sound1;
-    private MediaPlayer sound2;
 
     // Declare currentIncome as a member variable
 
@@ -68,7 +67,6 @@ public class Spent extends AppCompatActivity {
         //currentIncome = dbAssist.getIncome().isEmpty() ? 0 : Double.parseDouble(dbAssist.getIncome());
 
         sound1 = MediaPlayer.create(this, R.raw.clickbutton);
-        sound2 = MediaPlayer.create(this, R.raw.swordswing);
 
         //map the button and edittext from xml
         spendButton = findViewById(R.id.AddSpent);
@@ -113,7 +111,6 @@ public class Spent extends AppCompatActivity {
         //arrow button
         ImageView arrow4 = findViewById(R.id.backArrow4);
         arrow4.setOnClickListener(v -> {
-            sound2.start();
             finish();
         });
 

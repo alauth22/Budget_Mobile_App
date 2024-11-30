@@ -7,6 +7,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/*
+Why everything works without Setters
+Direct Database Updates:
+Since you handle updates directly via DBHelper, there’s no intermediate state in DBAssist that needs to be set. This avoids redundancy.
+
+Encapsulation of Logic:
+The DBAssist class centralizes your database-related operations, making it easy to maintain and test without exposing unnecessary internals.
+
+Dynamic Data Retrieval:
+By querying the database each time, your application always works with the most up-to-date information, ensuring consistency.
+ */
+
 public class DBHelper extends SQLiteOpenHelper {
 
     // Volatile instance to ensure thread safety

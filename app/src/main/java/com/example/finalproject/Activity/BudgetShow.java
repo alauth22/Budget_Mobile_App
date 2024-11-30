@@ -22,7 +22,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class BudgetShow extends AppCompatActivity {
 
 
-    private MediaPlayer sound1;
+
     private MediaPlayer sound2;
 
     private MediaPlayer sound3;
@@ -55,7 +55,7 @@ public class BudgetShow extends AppCompatActivity {
             db = new DBHelper(this);
 
             //media player for sound1
-            sound1 = MediaPlayer.create(this, R.raw.swordswing);
+
             sound2 = MediaPlayer.create(this, R.raw.messageincoming);
             sound3 = MediaPlayer.create(this, R.raw.clickbutton);
 
@@ -65,7 +65,6 @@ public class BudgetShow extends AppCompatActivity {
             //code for arrow button
             ImageView arrow1 = findViewById(R.id.backArrow1);
             arrow1.setOnClickListener(v -> {
-                sound1.start();
                 finish();
             });
 
