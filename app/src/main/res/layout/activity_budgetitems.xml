@@ -52,29 +52,29 @@
 
     <Button
         android:id="@+id/Refresh"
-        android:layout_width="137dp"
-        android:layout_height="53dp"
-        android:text="Refresh"
-        android:textSize="25sp"
+        android:layout_width="146dp"
+        android:layout_height="64dp"
+        android:text="@string/refresh_budget"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.802"
+        app:layout_constraintHorizontal_bias="0.792"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
+        app:layout_constraintVertical_bias="0.979" />
 
     <Button
         android:id="@+id/Update"
-        android:layout_width="137dp"
-        android:layout_height="53dp"
-        android:text="Update"
-        android:textSize="25sp"
+        android:layout_width="146dp"
+        android:layout_height="64dp"
+        android:text="@string/update_budget"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintHorizontal_bias="0.156"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
+        app:layout_constraintVertical_bias="0.979" />
 
     <EditText
         android:id="@+id/Insurance"
@@ -319,10 +319,10 @@
 
     <Button
         android:id="@+id/AddButton"
-        android:layout_width="139dp"
-        android:layout_height="56dp"
-        android:text="ADD"
-        android:textSize="25sp"
+        android:layout_width="146dp"
+        android:layout_height="64dp"
+        android:text="@string/add_new_budget"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.154"

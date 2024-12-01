@@ -43,4 +43,7 @@
     <string name="refresh_budget">Refresh Budget</string>
     <string name="empty" />
     <string name="dollarsign">$</string>
+    <string name="add_new_budget">Add New Budget</string>
+    <string name="update_current_budget">Update Current Budget</string>
+    <string name="update_budget">Update Budget</string>
 </resources>

@@ -22,6 +22,16 @@ import android.animation.ValueAnimator;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+
+/*
+MAIN ISSUES
+1) The drop down list has the two-word phrases put together to match that of the column name in the DB. Need to Fix that.
+2) Maybe Have a Simple Toast message that will pop up when an item is selected to show the person how much money is allocated to that category.
+that will help them avoid re-checking the budget window.
+ */
+
+
+
 public class MainActivity extends AppCompatActivity {
 
     TextView Income, Spent, Remaining;
@@ -147,9 +157,12 @@ public class MainActivity extends AppCompatActivity {
         circularProgressIndicator = findViewById(R.id.circularProgressIndicator);
 
 
-        // Optionally, if you want to animate the progress change, use a handler
-        //REVIEW HOW A HANDLER WORKS HERE!!!!!
-        //
+      /*
+      Here I am using both a handler and a runnable. The handler is the looper.getmainlooper() which allows
+      the tasks that needs to be executed to be done on the main thread. I want this as I am only updating the UI circular progress indicator bar.
+      The runnable or where it says run() defines which code needs to actually be run after the delay in the loop. in my example, I have the runnable being executed
+      after 200 milliseconds delay.
+       */
         int finalProgressValue = progressValue;
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
@@ -159,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                 circularProgressIndicator.setProgressCompat(finalProgressValue, true);
             }
         }, 200);
-
 
     }
 

@@ -31,6 +31,8 @@ public class BudgetItems extends AppCompatActivity {
 
     Button addButton, updateButton, refreshButton, viewButton;
 
+
+
     DBHelper db;
 
     DBAssist dbAssist = new DBAssist(this);
@@ -80,6 +82,8 @@ public class BudgetItems extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sound2.start();
+
+
 
                 //get the starting income too for the database column index 1
                 String StartingIncomeTXT = Income.getText().toString();
@@ -408,6 +412,10 @@ public class BudgetItems extends AppCompatActivity {
                 }
 
             }
+
+                //disable the button after it's clicked
+                addButton.setEnabled(false);
+                updateButton.setEnabled(true);
         }
 
     });
@@ -769,6 +777,9 @@ public class BudgetItems extends AppCompatActivity {
                     Toast.makeText(BudgetItems.this, "All Entries Not Reset", Toast.LENGTH_SHORT).show();
 
                 }
+
+                //enable the button once we refresh the database.
+                addButton.setEnabled(true);
 
             }
         });
