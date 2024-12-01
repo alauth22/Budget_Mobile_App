@@ -1,6 +1,7 @@
 package com.example.finalproject.Activity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -51,9 +52,6 @@ public class BudgetItems extends AppCompatActivity {
         });
 
 
-
-
-
         Income = findViewById(R.id.Income);
         Rent = findViewById(R.id.RentMortgage);
         Food = findViewById(R.id.Food);
@@ -82,6 +80,7 @@ public class BudgetItems extends AppCompatActivity {
             public void onClick(View v) {
 
                 sound2.start();
+
                 //get the values here.
                 String IncomeTXT = Income.getText().toString();
                 String RentTXT = Rent.getText().toString();
@@ -482,7 +481,6 @@ public class BudgetItems extends AppCompatActivity {
 
 
             }
-
 
         });
 

@@ -20,6 +20,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private int i = 0;
 
 
-
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
 
         sound1 = MediaPlayer.create(this, R.raw.dot);
-
 
 
         //find the actual button based off of it's ID from the activity_main
@@ -113,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         TextView incomeTextView = findViewById(R.id.ViewRemaining);
         incomeTextView.setText("Income: $" + updatedIncome);
 
+
         // Convert the updatedIncome string to an integer (or double depending on your logic)
         int incomeValue = 0;
         try {
@@ -125,19 +125,21 @@ public class MainActivity extends AppCompatActivity {
         int progressValue = Math.min(Math.max(incomeValue, 0), 100);
 
 
+
         //below is the code that will deal with the circular progress bar
         circularProgressIndicator = findViewById(R.id.circularProgressIndicator);
 
         // Optionally, if you want to animate the progress change, use a handler
         //REVIEW HOW A HANDLER WORKS HERE!!!!!
+        //
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 // Animate progress from current to the new value
                 circularProgressIndicator.setProgressCompat(progressValue, true);
             }
         }, 200);
-
 
 
     }

@@ -162,8 +162,10 @@ public class Spent extends AppCompatActivity {
 
             // Check if there are sufficient funds
             if (categoryAmount >= amountSpent) {
-                // Deduct the spent amount
+                // Deduct the spent amount from that category
                 categoryAmount -= amountSpent;
+
+                //deduct from the overall income
                 income -= amountSpent;
 
                 // Update the database
