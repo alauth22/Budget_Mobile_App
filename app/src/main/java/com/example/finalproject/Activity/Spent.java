@@ -31,7 +31,7 @@ public class Spent extends AppCompatActivity {
 
     // Declare currentIncome as a member variable
 
-    String[] Budget_Items = {"Rent", "Utilities", "Phone", "Internet", "Gym", "Food", "Gas", "Insurance", "Car Loan", "Student Loan", "Charity", "Emergency Fund", "Savings", "Retirement"};
+    String[] Budget_Items = {"Rent", "Utilities", "Phone", "Internet", "Gym", "Food", "Gas", "Insurance", "CarLoan", "StudentLoan", "Charity", "EmergencyFund", "Savings", "Retirement"};
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterItem;
@@ -158,7 +158,8 @@ public class Spent extends AppCompatActivity {
 
             // Get current values for the category and income
             double categoryAmount = Double.parseDouble(cursor.getString(columnIndex));
-            @SuppressLint("Range") double income = Double.parseDouble(cursor.getString(cursor.getColumnIndex("Income")));
+            double income = Double.parseDouble(cursor.getString(2));
+            String startingIncome = cursor.getString(1);
 
             // Check if there are sufficient funds
             if (categoryAmount >= amountSpent) {
@@ -172,6 +173,7 @@ public class Spent extends AppCompatActivity {
                 @SuppressLint("Range") boolean isUpdated = dbHelper.updateData(
                         1, // Assuming BudgetID is 1
                         String.valueOf(income),
+                        //I want to say if the expenseFinal.equals("Rent") I want to grab it from index 2
                         expenseFinal.equals("Rent") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Rent")),
                         expenseFinal.equals("Utilities") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Utilities")),
                         expenseFinal.equals("Phone") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Phone")),

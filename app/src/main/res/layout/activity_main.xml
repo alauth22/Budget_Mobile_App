@@ -71,65 +71,37 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="174dp"
-        android:layout_height="36dp"
-        android:text="@string/moneyremaining"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.261"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.438" />
-
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/circularProgressIndicator"
-        android:layout_width="235dp"
-        android:layout_height="220dp"
+        android:layout_width="257dp"
+        android:layout_height="245dp"
         android:layout_centerInParent="true"
         android:indeterminate="false"
-        app:indicatorColor="#000000"
-        app:indicatorSize="200dp"
+        app:indicatorColor="#4CAF50"
+        app:indicatorSize="330dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.438"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.847"
-        app:trackColor="#4CAF50"
-        app:trackThickness="15dp" />
+        app:layout_constraintVertical_bias="0.665"
+        app:trackColor="#121212"
+        app:trackThickness="25dp" />
 
     <TextView
-        android:id="@+id/ViewIncome"
-        android:layout_width="270dp"
-        android:layout_height="65dp"
-        android:fontFamily="monospace"
+        android:id="@+id/ViewRemaining"
+        android:layout_width="173dp"
+        android:layout_height="77dp"
         android:gravity="center"
-        android:text=""
+        android:text="TextView"
         android:textColor="#FF007F"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.319" />
-
-    <TextView
-        android:id="@+id/ViewRemaining"
-        android:layout_width="199dp"
-        android:layout_height="36dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.292"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.611" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CircularProgressIndicator circularProgressIndicator;
     private int i = 0;
+    private int progressValue;
 
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
@@ -110,34 +111,52 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         String updatedIncome = dbAssist.getIncome(); // Query the database for the income
         TextView incomeTextView = findViewById(R.id.ViewRemaining);
-        incomeTextView.setText("Income: $" + updatedIncome);
+        //incomeTextView.setText("Income: $" + updatedIncome);
 
 
-        // Convert the updatedIncome string to an integer (or double depending on your logic)
-        int incomeValue = 0;
+        //ok now we begin out work on the circular progress bar
+        String incomeStartStr = dbAssist.getStartingIncome();
+        String incomeCurrentStr = dbAssist.getIncome();
+
+
+        double incomeStart = 1;
+        double incomeCurrent = 0;
+
         try {
-            incomeValue = Integer.parseInt(updatedIncome);  // Or use Double.parseDouble(updatedIncome) if needed
+            incomeStart = Double.parseDouble(incomeStartStr);
+            incomeCurrent = Double.parseDouble(incomeCurrentStr);
         } catch (NumberFormatException e) {
-            e.printStackTrace();  // Handle invalid number format
+            //if there is somehow an invalid number format
+            e.printStackTrace();
         }
 
-        // Ensure the progress value is between 0 and 100
-        int progressValue = Math.min(Math.max(incomeValue, 0), 100);
+        progressValue = 0;
+
+        //so if the income start is greater than 0, because this is going to be based off of a 0 - 100 scale, we need to convert this to a percentage.
+        if (incomeStart > 0) {
+            progressValue = (int) ((incomeCurrent / incomeStart) * 100);
+        }
+
+        //update the progress value and ensure it is going to be between 0 and 100.
+        progressValue = Math.min(progressValue, 100);
+        incomeTextView.setText(progressValue + "% Left");
 
 
 
         //below is the code that will deal with the circular progress bar
         circularProgressIndicator = findViewById(R.id.circularProgressIndicator);
 
+
         // Optionally, if you want to animate the progress change, use a handler
         //REVIEW HOW A HANDLER WORKS HERE!!!!!
         //
+        int finalProgressValue = progressValue;
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 // Animate progress from current to the new value
-                circularProgressIndicator.setProgressCompat(progressValue, true);
+                circularProgressIndicator.setProgressCompat(finalProgressValue, true);
             }
         }, 200);
 

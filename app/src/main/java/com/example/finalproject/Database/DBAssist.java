@@ -18,12 +18,24 @@ public class DBAssist {
 
     }
 
+    //method to get the startingIncome value
+    public String getStartingIncome() {
+       String startingIncome = "";
+        Cursor res = db.getData();
+        if (res != null && res.moveToNext()) {
+            startingIncome = res.getString(1);
+        }
+        return startingIncome;
+    }
+
+
 
     public String getIncome() {
         String income = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            income = res.getString(1);
+            //we want to only get the second income which is the dynamical income!!
+            income = res.getString(2);
         }
         return income;
     }
@@ -35,7 +47,7 @@ public class DBAssist {
         String rent = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            rent = res.getString(2);
+            rent = res.getString(3);
         }
         return rent;
     }
@@ -45,7 +57,7 @@ public class DBAssist {
         String utilities = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            utilities = res.getString(3);
+            utilities = res.getString(4);
         }
         return utilities;
 
@@ -56,7 +68,7 @@ public class DBAssist {
         String phone = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            phone = res.getString(4);
+            phone = res.getString(5);
         }
         return phone;
     }
@@ -65,7 +77,7 @@ public class DBAssist {
         String internet = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            internet = res.getString(5);
+            internet = res.getString(6);
         }
         return internet;
     }
@@ -74,7 +86,7 @@ public class DBAssist {
         String gym = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            gym = res.getString(6);
+            gym = res.getString(7);
         }
         return gym;
     }
@@ -83,7 +95,7 @@ public class DBAssist {
         String food = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            food = res.getString(7);
+            food = res.getString(8);
         }
 
         return food;
@@ -94,7 +106,7 @@ public class DBAssist {
         String gas = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            gas = res.getString(8);
+            gas = res.getString(9);
         }
         return gas;
     }
@@ -104,7 +116,7 @@ public class DBAssist {
         String insurance = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            insurance = res.getString(9);
+            insurance = res.getString(10);
         }
         return insurance;
     }
@@ -114,7 +126,7 @@ public class DBAssist {
         String car = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            car = res.getString(10);
+            car = res.getString(11);
         }
         return car;
     }
@@ -124,7 +136,7 @@ public class DBAssist {
         String student = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            student = res.getString(11);
+            student = res.getString(12);
         }
         return student;
     }
@@ -134,7 +146,7 @@ public class DBAssist {
         String charity = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            charity = res.getString(12);
+            charity = res.getString(13);
         }
         return charity;
     }
@@ -143,7 +155,7 @@ public class DBAssist {
         String emergency = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            emergency = res.getString(13);
+            emergency = res.getString(14);
         }
         return emergency;
     }
@@ -152,7 +164,7 @@ public class DBAssist {
         String savings = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            savings = res.getString(14);
+            savings = res.getString(15);
         }
         return savings;
     }
@@ -161,7 +173,7 @@ public class DBAssist {
         String retirement = "";
         Cursor res = db.getData();
         if (res != null && res.moveToNext()) {
-            retirement = res.getString(15);
+            retirement = res.getString(16);
         }
         return retirement;
     }

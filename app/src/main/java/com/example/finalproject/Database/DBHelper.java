@@ -31,10 +31,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
+    //add the incomeStart which will only be updated once and then you can refresh it
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS Budget " +
                 "(BudgetID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "IncomeStart TEXT, " +
                 "Income TEXT, " +
                 "Rent TEXT, " +
                 "Utilities TEXT, " +
@@ -59,10 +61,101 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
+        public Boolean insertData(String income, String rent, String utilities, String phone, String internet, String gym, String food, String gas, String insurance, String carLoan, String studentLoan, String charity, String emergencyFund, String savings, String retirement) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        //primary key make it Autoincrement and it will always be 1.
+            contentValues.put("IncomeStart", income);
+            contentValues.put("Income", income);
+            contentValues.put("Rent", rent);
+            contentValues.put("Utilities", utilities);
+            contentValues.put("Phone", phone);
+            contentValues.put("Internet", internet);
+            contentValues.put("Gym", gym);
+            contentValues.put("Food", food);
+            contentValues.put("Gas", gas);
+            contentValues.put("Insurance", insurance);
+            contentValues.put("CarLoan", carLoan);
+            contentValues.put("StudentLoan", studentLoan);
+            contentValues.put("Charity", charity);
+            contentValues.put("EmergencyFund", emergencyFund);
+            contentValues.put("Savings", savings);
+            contentValues.put("Retirement", retirement);
+            //conflict replace will ensure only one row exists, if an entyr with the same income key exists it will overwrite it.
+            long result = db.insertWithOnConflict("Budget", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
+            Log.d("DB_Insert", "Insert Result: " + result);
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
+
+    }
+
+
+
+
+
+    public Boolean initialData (int BudgetID, String income, String rent, String utilities, String phone, String internet, String gym, String food, String gas, String insurance, String carLoan, String studentLoan, String charity, String emergencyFund, String savings, String retirement) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("IncomeStart", income);
+        //we want to update all of these like the same below:
+        contentValues.put("Income", income);
+        contentValues.put("Rent", rent);
+        contentValues.put("Utilities", utilities);
+        contentValues.put("Phone", phone);
+        contentValues.put("Internet", internet);
+        contentValues.put("Gym", gym);
+        contentValues.put("Food", food);
+        contentValues.put("Gas", gas);
+        contentValues.put("Insurance", insurance);
+        contentValues.put("CarLoan", carLoan);
+        contentValues.put("StudentLoan", studentLoan);
+        contentValues.put("Charity", charity);
+        contentValues.put("EmergencyFund", emergencyFund);
+        contentValues.put("Savings", savings);
+        contentValues.put("Retirement", retirement);
+
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM Budget WHERE BudgetID = ?", new String[]{String.valueOf(BudgetID)});
+        if (cursor.getCount() > 0) {
+            long result = db.update("Budget", contentValues, "BudgetID=?", new String[]{String.valueOf(BudgetID)});
+            if (result == -1){
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            //budget ID is not found.
+            return false;
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //this will for the SPENDING UPDATES ONLY NOT THE INCOME UPDATES
     public Boolean updateData (int BudgetID, String income, String rent, String utilities, String phone, String internet, String gym, String food, String gas, String insurance, String carLoan, String studentLoan, String charity, String emergencyFund, String savings, String retirement) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        //contentValues.put("IncomeStart", income);
+
+        //we want to update all of these like the same below:
         contentValues.put("Income", income);
         contentValues.put("Rent", rent);
         contentValues.put("Utilities", utilities);
@@ -99,6 +192,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean resetData() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put("IncomeStart", "");
         contentValues.put("Income", "");
         contentValues.put("Rent", "");
         contentValues.put("Utilities", "");
