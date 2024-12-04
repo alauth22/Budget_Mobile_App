@@ -1,6 +1,7 @@
 package com.example.finalproject.Activity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
@@ -24,14 +25,9 @@ import com.example.finalproject.R;
 public class BudgetItems extends AppCompatActivity {
 
     private MediaPlayer sound2;
-
     EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings, Retirement;
-
     TextView BudgetID;
-
     Button addButton, updateButton, refreshButton, viewButton;
-
-
 
     DBHelper db;
 
@@ -44,6 +40,7 @@ public class BudgetItems extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_budgetitems);
 
+        // My singleton will return an instance of DBHelper.
         db = DBSingleton.getInstance(this);
 
         sound2 = MediaPlayer.create(this, R.raw.clickbutton);
@@ -69,7 +66,7 @@ public class BudgetItems extends AppCompatActivity {
         EmergencyFund = findViewById(R.id.EmergencyFund);
         Savings = findViewById(R.id.Savings);
         Retirement = findViewById(R.id.Retirement);
-//        BudgetID = findViewById(R.id.BudgetID);
+
 
         updateButton = findViewById(R.id.Update);
         refreshButton = findViewById(R.id.Refresh);
@@ -77,12 +74,31 @@ public class BudgetItems extends AppCompatActivity {
         addButton = findViewById(R.id.AddButton);
 
 
+        //these are my checks to ensure that the user cannot just click on buttons here and there.
+        String incomePresent = dbAssist.getStartingIncome();
+        if(incomePresent.isEmpty()){
+            addButton.setEnabled(true);
+        }
+        else
+        {
+            addButton.setEnabled(false);
+        };
+
+        //user cannot update their budget unless they have added one before.
+        if(incomePresent.isEmpty()){
+            updateButton.setEnabled(false);
+        }
+        else
+        {
+            updateButton.setEnabled(true);
+        }
+
+
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sound2.start();
-
 
 
                 //get the starting income too for the database column index 1
@@ -105,323 +121,240 @@ public class BudgetItems extends AppCompatActivity {
                 String SavingsTXT = Savings.getText().toString();
                 String RetirementTXT = Retirement.getText().toString();
 
-            if  (StartingIncomeTXT.isEmpty()) {
-                if (dbAssist.getIncome().isEmpty()) {
-                    StartingIncomeTXT = "0";
+                if (StartingIncomeTXT.isEmpty()) {
+                    if (dbAssist.getIncome().isEmpty()) {
+                        StartingIncomeTXT = "0";
+                    } else {
+                        StartingIncomeTXT = dbAssist.getStartingIncome();
+                    }
                 } else {
-                    StartingIncomeTXT = dbAssist.getStartingIncome();
+                    StartingIncomeTXT = Income.getText().toString();
                 }
-            }
-                else
-            {
-                StartingIncomeTXT = Income.getText().toString();
-            }
 
 
-            //income this is getting it
+                //income this is getting it
                 if (IncomeTXT.isEmpty()) {
 
-                if (dbAssist.getIncome().isEmpty()) {
-                    IncomeTXT = "0";
+                    if (dbAssist.getIncome().isEmpty()) {
+                        IncomeTXT = "0";
+
+                    } else {
+                        IncomeTXT = dbAssist.getIncome();
+                    }
 
                 } else {
-                    IncomeTXT = dbAssist.getIncome();
+                    IncomeTXT = Income.getText().toString();
                 }
 
-            }
-                else
-            {
-                IncomeTXT = Income.getText().toString();
-            }
-
-            //rent
-                if(RentTXT.isEmpty())
-            {
-                if(dbAssist.getRent().isEmpty())
-                {
-                    RentTXT = "0";
+                //rent
+                if (RentTXT.isEmpty()) {
+                    if (dbAssist.getRent().isEmpty()) {
+                        RentTXT = "0";
+                    } else {
+                        RentTXT = dbAssist.getRent();
+                    }
+                } else {
+                    RentTXT = Rent.getText().toString();
                 }
-                else
-                {
-                    RentTXT = dbAssist.getRent();
-                }
-            }
-                else
-            {
-                RentTXT = Rent.getText().toString();
-            }
 
 
-            //Utilities
-                if(UtilitiesTXT.isEmpty())
-            {
-                if(dbAssist.getUtilities().isEmpty())
-                {
-                    UtilitiesTXT = "0";
+                //Utilities
+                if (UtilitiesTXT.isEmpty()) {
+                    if (dbAssist.getUtilities().isEmpty()) {
+                        UtilitiesTXT = "0";
+                    } else {
+                        UtilitiesTXT = dbAssist.getUtilities();
+                    }
+                } else {
+                    UtilitiesTXT = Utilities.getText().toString();
                 }
-                else
-                {
-                    UtilitiesTXT = dbAssist.getUtilities();
-                }
-            }
-                else
-            {
-                UtilitiesTXT = Utilities.getText().toString();
-            }
 
 
-            //phone
-                if(PhoneTXT.isEmpty())
-            {
-                if(dbAssist.getPhone().isEmpty())
-                {
-                    PhoneTXT = "0";
+                //phone
+                if (PhoneTXT.isEmpty()) {
+                    if (dbAssist.getPhone().isEmpty()) {
+                        PhoneTXT = "0";
+                    } else {
+                        PhoneTXT = dbAssist.getPhone();
+                    }
+                } else {
+                    PhoneTXT = Phone.getText().toString();
                 }
-                else
-                {
-                    PhoneTXT = dbAssist.getPhone();
-                }
-            }
-                else
-            {
-                PhoneTXT = Phone.getText().toString();
-            }
 
 
-                if(InternetTXT.isEmpty())
-            {
-                if(dbAssist.getInternet().isEmpty())
-                {
-                    InternetTXT = "0";
+                if (InternetTXT.isEmpty()) {
+                    if (dbAssist.getInternet().isEmpty()) {
+                        InternetTXT = "0";
+                    } else {
+                        InternetTXT = dbAssist.getInternet();
+                    }
+                } else {
+                    InternetTXT = Internet.getText().toString();
                 }
-                else
-                {
-                    InternetTXT = dbAssist.getInternet();
-                }
-            }
-                else
-            {
-                InternetTXT = Internet.getText().toString();
-            }
 
 
-                if(GymTXT.isEmpty())
-            {
-                if(dbAssist.getGym().isEmpty())
-                {
-                    GymTXT = "0";
+                if (GymTXT.isEmpty()) {
+                    if (dbAssist.getGym().isEmpty()) {
+                        GymTXT = "0";
+                    } else {
+                        GymTXT = dbAssist.getGym();
+                    }
+                } else {
+                    GymTXT = Gym.getText().toString();
                 }
-                else
-                {
-                    GymTXT = dbAssist.getGym();
-                }
-            }
-                else
-            {
-                GymTXT = Gym.getText().toString();
-            }
 
 
-                if(FoodTXT.isEmpty())
-            {
-                if(dbAssist.getFood().isEmpty())
-                {
-                    FoodTXT = "0";
+                if (FoodTXT.isEmpty()) {
+                    if (dbAssist.getFood().isEmpty()) {
+                        FoodTXT = "0";
+                    } else {
+                        FoodTXT = dbAssist.getFood();
+                    }
+                } else {
+                    FoodTXT = Food.getText().toString();
                 }
-                else
-                {
-                    FoodTXT = dbAssist.getFood();
-                }
-            }
-                else
-            {
-                FoodTXT = Food.getText().toString();
-            }
 
-                if(GasTXT.isEmpty())
-            {
-                if(dbAssist.getGas().isEmpty())
-                {
-                    GasTXT = "0";
+                if (GasTXT.isEmpty()) {
+                    if (dbAssist.getGas().isEmpty()) {
+                        GasTXT = "0";
+                    } else {
+                        GasTXT = dbAssist.getGas();
+                    }
+                } else {
+                    GasTXT = Gas.getText().toString();
                 }
-                else
-                {
-                    GasTXT = dbAssist.getGas();
-                }
-            }
-                else
-            {
-                GasTXT = Gas.getText().toString();
-            }
 
-                if(InsuranceTXT.isEmpty())
-            {
-                if(dbAssist.getInsurance().isEmpty())
-                {
-                    InsuranceTXT = "0";
+                if (InsuranceTXT.isEmpty()) {
+                    if (dbAssist.getInsurance().isEmpty()) {
+                        InsuranceTXT = "0";
+                    } else {
+                        InsuranceTXT = dbAssist.getInsurance();
+                    }
+                } else {
+                    InsuranceTXT = Insurance.getText().toString();
                 }
-                else
-                {
-                    InsuranceTXT = dbAssist.getInsurance();
-                }
-            }
-                else
-            {
-                InsuranceTXT = Insurance.getText().toString();
-            }
 
 
-                if(CarLoanTXT.isEmpty())
-            {
-                if(dbAssist.getCar().isEmpty())
-                {
-                    CarLoanTXT = "0";
+                if (CarLoanTXT.isEmpty()) {
+                    if (dbAssist.getCar().isEmpty()) {
+                        CarLoanTXT = "0";
+                    } else {
+                        CarLoanTXT = dbAssist.getCar();
+                    }
+                } else {
+                    CarLoanTXT = CarLoan.getText().toString();
                 }
-                else
-                {
-                    CarLoanTXT = dbAssist.getCar();
-                }
-            }
-                else
-            {
-                CarLoanTXT = CarLoan.getText().toString();
-            }
 
-                if(StudentLoanTXT.isEmpty())
-            {
-                if(dbAssist.getStudent().isEmpty())
-                {
-                    StudentLoanTXT = "0";
+                if (StudentLoanTXT.isEmpty()) {
+                    if (dbAssist.getStudent().isEmpty()) {
+                        StudentLoanTXT = "0";
+                    } else {
+                        StudentLoanTXT = dbAssist.getStudent();
+                    }
+                } else {
+                    StudentLoanTXT = StudentLoan.getText().toString();
                 }
-                else
-                {
-                    StudentLoanTXT = dbAssist.getStudent();
-                }
-            }
-                else
-            {
-                StudentLoanTXT = StudentLoan.getText().toString();
-            }
 
-                if(CharityTXT.isEmpty())
-            {
-                if(dbAssist.getCharity().isEmpty())
-                {
-                    CharityTXT = "0";
+                if (CharityTXT.isEmpty()) {
+                    if (dbAssist.getCharity().isEmpty()) {
+                        CharityTXT = "0";
+                    } else {
+                        CharityTXT = dbAssist.getCharity();
+                    }
+                } else {
+                    CharityTXT = Charity.getText().toString();
                 }
-                else
-                {
-                    CharityTXT = dbAssist.getCharity();
-                }
-            }
-                else
-            {
-                CharityTXT = Charity.getText().toString();
-            }
 
 
-                if(EmergencyFundTXT.isEmpty())
-            {
-                if(dbAssist.getEmergency().isEmpty())
+                if (EmergencyFundTXT.isEmpty()) {
+                    if (dbAssist.getEmergency().isEmpty()) {
+                        EmergencyFundTXT = "0";
+                    } else {
+                        EmergencyFundTXT = dbAssist.getEmergency();
+                    }
+                } else {
+                    EmergencyFundTXT = EmergencyFund.getText().toString();
+                }
+
+
+                if (SavingsTXT.isEmpty()) {
+                    if (dbAssist.getSavings().isEmpty()) {
+                        SavingsTXT = "0";
+                    } else {
+                        SavingsTXT = dbAssist.getSavings();
+                    }
+                } else {
+                    SavingsTXT = Savings.getText().toString();
+                }
+
+
+                if (RetirementTXT.isEmpty()) {
+                    if (dbAssist.getRetirement().isEmpty()) {
+                        RetirementTXT = "0";
+                    } else {
+                        RetirementTXT = dbAssist.getRetirement();
+                    }
+                } else {
+                    RetirementTXT = Retirement.getText().toString();
+                }
+
+
+                //now ensure that the values do not overexceed the income
+                //convert everything to double NOT USED YET
+                double StartingIncome = Double.parseDouble(StartingIncomeTXT);
+                //maybe I should put these all into an array and do for loops later to clean it up.
+                double income = Double.parseDouble(IncomeTXT);
+                double rent = Double.parseDouble(RentTXT);
+                double utilities = Double.parseDouble(UtilitiesTXT);
+                double phone = Double.parseDouble(PhoneTXT);
+                double internet = Double.parseDouble(InternetTXT);
+                double gym = Double.parseDouble(GymTXT);
+                double food = Double.parseDouble(FoodTXT);
+                double gas = Double.parseDouble(GasTXT);
+                double insurance = Double.parseDouble(InsuranceTXT);
+                double car = Double.parseDouble(CarLoanTXT);
+                double student = Double.parseDouble(StudentLoanTXT);
+                double charity = Double.parseDouble(CharityTXT);
+                double emergency = Double.parseDouble(EmergencyFundTXT);
+                double savings = Double.parseDouble(SavingsTXT);
+                double retirement = Double.parseDouble(RetirementTXT);
+
+                double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings + retirement;
+                if (income == 0)
                 {
-                    EmergencyFundTXT = "0";
+                    Toast.makeText(BudgetItems.this, "Please enter an income first to add a budget.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if (total > income) {
+                    Toast.makeText(BudgetItems.this, "Expense total  of $ " + total + " exceeds your income of $" + income, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if (total != income)
+                {
+                    Toast.makeText(BudgetItems.this, "Your expense total of $" + total + " does not equal your income of $" + income, Toast.LENGTH_LONG).show();
+                    return;
                 }
                 else
                 {
-                    EmergencyFundTXT = dbAssist.getEmergency();
+                    //if we are able to actually update the database without error then we are good.
+                    Boolean checkupdatedata = db.initialData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT, RetirementTXT);
+                    //send a good message
+                    if (checkupdatedata == true) {
+                        Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
+                    }
+                    //else if it is not then send a bad message
+                    else {
+                        Toast.makeText(BudgetItems.this, "Entry Not Updated.", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
-            }
-                else
-            {
-                EmergencyFundTXT = EmergencyFund.getText().toString();
-            }
-
-
-                if(SavingsTXT.isEmpty())
-            {
-                if(dbAssist.getSavings().isEmpty())
-                {
-                    SavingsTXT = "0";
-                }
-                else
-                {
-                    SavingsTXT = dbAssist.getSavings();
-                }
-            }
-                else
-            {
-                SavingsTXT = Savings.getText().toString();
-            }
-
-
-                if(RetirementTXT.isEmpty())
-            {
-                if(dbAssist.getRetirement().isEmpty())
-                {
-                    RetirementTXT = "0";
-                }
-                else
-                {
-                    RetirementTXT = dbAssist.getRetirement();
-                }
-            }
-                else
-            {
-                RetirementTXT = Retirement.getText().toString();
-            }
-
-
-
-            //now ensure that the values do not overexceed the income
-            //convert everything to double NOT USED YET
-            double StartingIncome = Double.parseDouble(StartingIncomeTXT);
-            //maybe I should put these all into an array and do for loops later to clean it up.
-            double income = Double.parseDouble(IncomeTXT);
-            double rent = Double.parseDouble(RentTXT);
-            double utilities = Double.parseDouble(UtilitiesTXT);
-            double phone = Double.parseDouble(PhoneTXT);
-            double internet = Double.parseDouble(InternetTXT);
-            double gym = Double.parseDouble(GymTXT);
-            double food = Double.parseDouble(FoodTXT);
-            double gas = Double.parseDouble(GasTXT);
-            double insurance = Double.parseDouble(InsuranceTXT);
-            double car = Double.parseDouble(CarLoanTXT);
-            double student = Double.parseDouble(StudentLoanTXT);
-            double charity = Double.parseDouble(CharityTXT);
-            double emergency = Double.parseDouble(EmergencyFundTXT);
-            double savings = Double.parseDouble(SavingsTXT);
-            double retirement = Double.parseDouble(RetirementTXT);
-
-            double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings + retirement;
-                if (total > income) {
-                Toast.makeText(BudgetItems.this, "Total exceeds income. Please adjust the values.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-                else
-            {
-                //if we are able to actually update the database without error then we are good.
-                Boolean checkupdatedata = db.initialData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT, RetirementTXT);
-                //send a good message
-                if (checkupdatedata == true) {
-                    Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
-                }
-                //else if it is not then send a bad message
-                else
-                {
-                    Toast.makeText(BudgetItems.this, "Entry Not Updated.", Toast.LENGTH_SHORT).show();
-                }
-
-            }
 
                 //disable the button after it's clicked
                 addButton.setEnabled(false);
                 updateButton.setEnabled(true);
-        }
+            }
 
-    });
-
-
-
+        });
 
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -460,248 +393,161 @@ public class BudgetItems extends AppCompatActivity {
                         IncomeTXT = dbAssist.getIncome();
                     }
 
-                }
-                else
-                {
+                } else {
                     IncomeTXT = Income.getText().toString();
                 }
 
                 //rent
-                if(RentTXT.isEmpty())
-                {
-                    if(dbAssist.getRent().isEmpty())
-                    {
+                if (RentTXT.isEmpty()) {
+                    if (dbAssist.getRent().isEmpty()) {
                         RentTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         RentTXT = dbAssist.getRent();
                     }
-                }
-                else
-                {
+                } else {
                     RentTXT = Rent.getText().toString();
                 }
 
 
                 //Utilities
-                if(UtilitiesTXT.isEmpty())
-                {
-                    if(dbAssist.getUtilities().isEmpty())
-                    {
+                if (UtilitiesTXT.isEmpty()) {
+                    if (dbAssist.getUtilities().isEmpty()) {
                         UtilitiesTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         UtilitiesTXT = dbAssist.getUtilities();
                     }
-                }
-                else
-                {
+                } else {
                     UtilitiesTXT = Utilities.getText().toString();
                 }
 
 
                 //phone
-                if(PhoneTXT.isEmpty())
-                {
-                    if(dbAssist.getPhone().isEmpty())
-                    {
+                if (PhoneTXT.isEmpty()) {
+                    if (dbAssist.getPhone().isEmpty()) {
                         PhoneTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         PhoneTXT = dbAssist.getPhone();
                     }
-                }
-                else
-                {
+                } else {
                     PhoneTXT = Phone.getText().toString();
                 }
 
 
-                if(InternetTXT.isEmpty())
-                {
-                    if(dbAssist.getInternet().isEmpty())
-                    {
+                if (InternetTXT.isEmpty()) {
+                    if (dbAssist.getInternet().isEmpty()) {
                         InternetTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         InternetTXT = dbAssist.getInternet();
                     }
-                }
-                else
-                {
+                } else {
                     InternetTXT = Internet.getText().toString();
                 }
 
 
-                if(GymTXT.isEmpty())
-                {
-                    if(dbAssist.getGym().isEmpty())
-                    {
+                if (GymTXT.isEmpty()) {
+                    if (dbAssist.getGym().isEmpty()) {
                         GymTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         GymTXT = dbAssist.getGym();
                     }
-                }
-                else
-                {
+                } else {
                     GymTXT = Gym.getText().toString();
                 }
 
 
-                if(FoodTXT.isEmpty())
-                {
-                    if(dbAssist.getFood().isEmpty())
-                    {
+                if (FoodTXT.isEmpty()) {
+                    if (dbAssist.getFood().isEmpty()) {
                         FoodTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         FoodTXT = dbAssist.getFood();
                     }
-                }
-                else
-                {
+                } else {
                     FoodTXT = Food.getText().toString();
                 }
 
-                if(GasTXT.isEmpty())
-                {
-                    if(dbAssist.getGas().isEmpty())
-                    {
+                if (GasTXT.isEmpty()) {
+                    if (dbAssist.getGas().isEmpty()) {
                         GasTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         GasTXT = dbAssist.getGas();
                     }
-                }
-                else
-                {
+                } else {
                     GasTXT = Gas.getText().toString();
                 }
 
-                if(InsuranceTXT.isEmpty())
-                {
-                    if(dbAssist.getInsurance().isEmpty())
-                    {
+                if (InsuranceTXT.isEmpty()) {
+                    if (dbAssist.getInsurance().isEmpty()) {
                         InsuranceTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         InsuranceTXT = dbAssist.getInsurance();
                     }
-                }
-                else
-                {
+                } else {
                     InsuranceTXT = Insurance.getText().toString();
                 }
 
 
-                if(CarLoanTXT.isEmpty())
-                {
-                    if(dbAssist.getCar().isEmpty())
-                    {
+                if (CarLoanTXT.isEmpty()) {
+                    if (dbAssist.getCar().isEmpty()) {
                         CarLoanTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         CarLoanTXT = dbAssist.getCar();
                     }
-                }
-                else
-                {
+                } else {
                     CarLoanTXT = CarLoan.getText().toString();
                 }
 
-                if(StudentLoanTXT.isEmpty())
-                {
-                    if(dbAssist.getStudent().isEmpty())
-                    {
+                if (StudentLoanTXT.isEmpty()) {
+                    if (dbAssist.getStudent().isEmpty()) {
                         StudentLoanTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         StudentLoanTXT = dbAssist.getStudent();
                     }
-                }
-                else
-                {
+                } else {
                     StudentLoanTXT = StudentLoan.getText().toString();
                 }
 
-                if(CharityTXT.isEmpty())
-                {
-                    if(dbAssist.getCharity().isEmpty())
-                    {
+                if (CharityTXT.isEmpty()) {
+                    if (dbAssist.getCharity().isEmpty()) {
                         CharityTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         CharityTXT = dbAssist.getCharity();
                     }
-                }
-                else
-                {
+                } else {
                     CharityTXT = Charity.getText().toString();
                 }
 
 
-                if(EmergencyFundTXT.isEmpty())
-                {
-                    if(dbAssist.getEmergency().isEmpty())
-                    {
+                if (EmergencyFundTXT.isEmpty()) {
+                    if (dbAssist.getEmergency().isEmpty()) {
                         EmergencyFundTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         EmergencyFundTXT = dbAssist.getEmergency();
                     }
-                }
-                else
-                {
+                } else {
                     EmergencyFundTXT = EmergencyFund.getText().toString();
                 }
 
 
-                if(SavingsTXT.isEmpty())
-                {
-                    if(dbAssist.getSavings().isEmpty())
-                    {
+                if (SavingsTXT.isEmpty()) {
+                    if (dbAssist.getSavings().isEmpty()) {
                         SavingsTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         SavingsTXT = dbAssist.getSavings();
                     }
-                }
-                else
-                {
+                } else {
                     SavingsTXT = Savings.getText().toString();
                 }
 
 
-                if(RetirementTXT.isEmpty())
-                {
-                    if(dbAssist.getRetirement().isEmpty())
-                    {
+                if (RetirementTXT.isEmpty()) {
+                    if (dbAssist.getRetirement().isEmpty()) {
                         RetirementTXT = "0";
-                    }
-                    else
-                    {
+                    } else {
                         RetirementTXT = dbAssist.getRetirement();
                     }
-                }
-                else
-                {
+                } else {
                     RetirementTXT = Retirement.getText().toString();
                 }
-
 
 
                 //now ensure that the values do not overexceed the income
@@ -725,11 +571,9 @@ public class BudgetItems extends AppCompatActivity {
                 double retirement = Double.parseDouble(RetirementTXT);
                 double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings + retirement;
                 if (total > income) {
-                    Toast.makeText(BudgetItems.this, "Total exceeds income. Please adjust the values.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BudgetItems.this, "Total exceeds income. Please adjust values and use zeros.", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                else
-                {
+                } else {
                     //if we are able to actually update the database without error then we are good.
                     Boolean checkupdatedata = db.updateData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT, RetirementTXT);
                     //send a good message
@@ -737,8 +581,7 @@ public class BudgetItems extends AppCompatActivity {
                         Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
                     }
                     //else if it is not then send a bad message
-                    else
-                    {
+                    else {
                         Toast.makeText(BudgetItems.this, "Entry Not Updated.", Toast.LENGTH_SHORT).show();
                     }
 
@@ -748,104 +591,120 @@ public class BudgetItems extends AppCompatActivity {
         });
 
 
+
+
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sound2.start();
-                Boolean checkresetdata = db.resetData();
 
-                if(checkresetdata == true) {
-                    Income.setText("");
-                    Rent.setText("");
-                    Utilities.setText("");
-                    Phone.setText("");
-                    Internet.setText("");
-                    Gym.setText("");
-                    Food.setText("");
-                    Gas.setText("");
-                    Insurance.setText("");
-                    CarLoan.setText("");
-                    StudentLoan.setText("");
-                    Charity.setText("");
-                    EmergencyFund.setText("");
-                    Savings.setText("");
-                    Retirement.setText("");
-                    Toast.makeText(BudgetItems.this, "All Entries Reset", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(BudgetItems.this, "All Entries Not Reset", Toast.LENGTH_SHORT).show();
-
-                }
-
-                //enable the button once we refresh the database.
-                addButton.setEnabled(true);
-
-            }
-        });
-
-
-
-
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-
-                //sendDBValuesToAnotherActivity();
-
-                sound2.start();
-
-                //THIS WORKS!!!!
-                Cursor res = db.getData();
-                if (res.getCount() == 0) {
-                    Toast.makeText(BudgetItems.this, "No entry exists", Toast.LENGTH_SHORT).show();
-//                    tv.setText("");
-                    return;
-                }
-                StringBuilder buffer = new StringBuilder();
-                while (res.moveToNext()) {
-                    //this is my check to ensure I am only using 1 ID.
-                    buffer.append("ID: ").append(res.getString(0)).append("\n");
-                    buffer.append("Starting Income: ").append(res.getString(1)).append("\n");
-
-                    buffer.append("Income: ").append(res.getString(2)).append("\n");
-                    buffer.append("Rent : ").append(res.getString(3)).append("\n");
-                    buffer.append("Utilities : ").append(res.getString(4)).append("\n");
-                    buffer.append("Phone : ").append(res.getString(5)).append("\n");
-                    buffer.append("Internet : ").append(res.getString(6)).append("\n");
-                    buffer.append("Gym : ").append(res.getString(7)).append("\n");
-                    buffer.append("Food : ").append(res.getString(8)).append("\n");
-                    buffer.append("Gas : ").append(res.getString(9)).append("\n");
-                    buffer.append("Insurance : ").append(res.getString(10)).append("\n");
-                    buffer.append("Car Loan : ").append(res.getString(11)).append("\n");
-                    buffer.append("Student Loan : ").append(res.getString(12)).append("\n");
-                    buffer.append("Charity : ").append(res.getString(13)).append("\n");
-                    buffer.append("Emergency Fund : ").append(res.getString(14)).append("\n");
-                    buffer.append("Savings : ").append(res.getString(15)).append("\n");
-                    buffer.append("Retirement : ").append(res.getString(16)).append("\n");
-
-
-                }
-
-                //this is also my TESTING
                 AlertDialog.Builder builder = new AlertDialog.Builder(BudgetItems.this);
-                builder.setCancelable(true);
-                builder.setTitle("User Details");
-                builder.setMessage(buffer.toString());
+                builder.setMessage("Are you sure want to reset all entries and begin a new budget?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Proceed with the database action
+                                Boolean checkresetdata = db.resetData();
+
+                                if (checkresetdata == true) {
+                                    Income.setText("");
+                                    Rent.setText("");
+                                    Utilities.setText("");
+                                    Phone.setText("");
+                                    Internet.setText("");
+                                    Gym.setText("");
+                                    Food.setText("");
+                                    Gas.setText("");
+                                    Insurance.setText("");
+                                    CarLoan.setText("");
+                                    StudentLoan.setText("");
+                                    Charity.setText("");
+                                    EmergencyFund.setText("");
+                                    Savings.setText("");
+                                    Retirement.setText("");
+                                    Toast.makeText(BudgetItems.this, "All Entries Are Reset!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(BudgetItems.this, "All Entries Are Not Reset!", Toast.LENGTH_SHORT).show();
+
+                                }
+                                //enable the button once we refresh the database.
+                                addButton.setEnabled(true);
+                                updateButton.setEnabled(false);
+
+                            }
+
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
                 builder.show();
 
 
             }
+        });
+
+
+        //let's do practice sending a message when the button is clicked. YES or NO to proceed.
+        //THIS WILL NOT STAY THIS IS MY TEST!!!!
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                //sendDBValuesToAnotherActivity();
+                sound2.start();
+
+
+                                // Proceed with the database action
+                                Cursor res = db.getData();
+                                if (res.getCount() == 0) {
+                                    Toast.makeText(BudgetItems.this, "No entry exists", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                StringBuilder buffer = new StringBuilder();
+                                while (res.moveToNext()) {
+                                    //this is my check to ensure I am only using 1 ID.
+                                    buffer.append("ID: ").append(res.getString(0)).append("\n");
+                                    buffer.append("Starting Income: ").append(res.getString(1)).append("\n");
+
+                                    buffer.append("Income: ").append(res.getString(2)).append("\n");
+                                    buffer.append("Rent : ").append(res.getString(3)).append("\n");
+                                    buffer.append("Utilities : ").append(res.getString(4)).append("\n");
+                                    buffer.append("Phone : ").append(res.getString(5)).append("\n");
+                                    buffer.append("Internet : ").append(res.getString(6)).append("\n");
+                                    buffer.append("Gym : ").append(res.getString(7)).append("\n");
+                                    buffer.append("Food : ").append(res.getString(8)).append("\n");
+                                    buffer.append("Gas : ").append(res.getString(9)).append("\n");
+                                    buffer.append("Insurance : ").append(res.getString(10)).append("\n");
+                                    buffer.append("Car Loan : ").append(res.getString(11)).append("\n");
+                                    buffer.append("Student Loan : ").append(res.getString(12)).append("\n");
+                                    buffer.append("Charity : ").append(res.getString(13)).append("\n");
+                                    buffer.append("Emergency Fund : ").append(res.getString(14)).append("\n");
+                                    buffer.append("Savings : ").append(res.getString(15)).append("\n");
+                                    buffer.append("Retirement : ").append(res.getString(16)).append("\n");
+
+
+                                }
+
+                                //this is also my TESTING
+                                AlertDialog.Builder detailsbuilder = new AlertDialog.Builder(BudgetItems.this);
+                                detailsbuilder.setCancelable(true);
+                                detailsbuilder.setTitle("User Details");
+                                detailsbuilder.setMessage(buffer.toString());
+                                detailsbuilder.show();
+
+
+
+            }
 
         });
 
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
     }
+
 
 }

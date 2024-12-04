@@ -1,9 +1,16 @@
 package com.example.finalproject.Database;
 import android.content.Context;
 
+/*
+Singleton ensures that only one DBHelper instance exists throughout the application's lifecycle.
+Helps prevent database helper instances from being created randomly and all over the place.
+
+I also encapsulate here by making the dbhelper instance private and only accessible via the DBSingleton.getInstance method
+which is my main controller.
+ */
+
 public class DBSingleton {
     private static DBHelper  instance;
-    private DBHelper dbHelper;
 
     //private constructor to prevent instantiation from outside the classes
    private DBSingleton(Context applicationContext) {}

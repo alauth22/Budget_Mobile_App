@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.finalproject.Animation.HoverEffect;
 import com.example.finalproject.Database.DBAssist;
 import com.example.finalproject.Database.DBHelper;
 import com.example.finalproject.R;
@@ -35,6 +36,10 @@ public class BudgetShow extends AppCompatActivity {
 
     //RecyclerView recyclerView;
     FloatingActionButton fab1;
+
+    ImageView DollarSign;
+
+
     //MyDatabaseHelper myDB;
 
 //    Intent intent = new Intent(BudgetShow.this, BudgetItems.class);
@@ -61,6 +66,11 @@ public class BudgetShow extends AppCompatActivity {
 
 
             tv = findViewById(R.id.BudgetView);
+
+            //Animation doesn't quite work yet!!!
+            DollarSign = findViewById(R.id.DollarSign);
+            new HoverEffect(DollarSign);
+
 
             //code for arrow button
             ImageView arrow1 = findViewById(R.id.backArrow1);

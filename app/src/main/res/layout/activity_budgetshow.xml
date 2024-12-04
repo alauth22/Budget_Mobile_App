@@ -63,7 +63,7 @@
         app:srcCompat="@drawable/baseline_add_24" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/House"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +75,7 @@
         app:srcCompat="@drawable/baseline_house_24" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/DollarSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -87,7 +87,7 @@
         app:srcCompat="@drawable/baseline_monetization_on_24" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/Wrench"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +99,7 @@
         app:srcCompat="@drawable/baseline_plumbing_24" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/Phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -111,7 +111,7 @@
         app:srcCompat="@drawable/baseline_smartphone_24" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/Wifi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -123,7 +123,7 @@
         app:srcCompat="@drawable/baseline_wifi_24" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/Gym"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -135,7 +135,7 @@
         app:srcCompat="@drawable/baseline_sports_24" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/Cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -147,7 +147,7 @@
         app:srcCompat="@drawable/baseline_local_grocery_store_24" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/Gas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -159,7 +159,7 @@
         app:srcCompat="@drawable/baseline_local_gas_station_24" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/Insurance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -171,7 +171,7 @@
         app:srcCompat="@drawable/baseline_personal_injury_24" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/Car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -183,7 +183,7 @@
         app:srcCompat="@drawable/baseline_directions_car_24" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/School"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -195,7 +195,7 @@
         app:srcCompat="@drawable/baseline_school_24" />
 
     <ImageView
-        android:id="@+id/imageView13"
+        android:id="@+id/Charity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -207,7 +207,7 @@
         app:srcCompat="@drawable/baseline_volunteer_activism_24" />
 
     <ImageView
-        android:id="@+id/imageView14"
+        android:id="@+id/Emergency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -219,7 +219,7 @@
         app:srcCompat="@drawable/baseline_emergency_24" />
 
     <ImageView
-        android:id="@+id/imageView15"
+        android:id="@+id/Savings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -231,7 +231,7 @@
         app:srcCompat="@drawable/baseline_savings_24" />
 
     <ImageView
-        android:id="@+id/imageView16"
+        android:id="@+id/Retirement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -226,4 +226,32 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+
+    //get the specific column's
+    public String getDatabyColumnName(String columnName)
+    {
+
+        //reference to my writable database
+        SQLiteDatabase db = this.getWritableDatabase();
+        String endResult = "";
+
+        //write query to get value from that column name.
+        String query = "SELECT " + columnName + " FROM Budget";
+        Cursor cursor = db.rawQuery(query, null);
+
+        //if the cursor does not equal null AND you can actually extract information from the first row
+        if(cursor != null && cursor.moveToFirst())
+        {
+            int columnIndex = cursor.getColumnIndex(columnName);
+            endResult = cursor.getString(columnIndex);
+
+            cursor.close();
+        }
+
+        return endResult;
+
+    }
+
+
+
 }

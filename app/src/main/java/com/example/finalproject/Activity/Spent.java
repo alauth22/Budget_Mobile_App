@@ -31,7 +31,7 @@ public class Spent extends AppCompatActivity {
 
     // Declare currentIncome as a member variable
 
-    String[] Budget_Items = {"Rent", "Utilities", "Phone", "Internet", "Gym", "Food", "Gas", "Insurance", "CarLoan", "StudentLoan", "Charity", "EmergencyFund", "Savings", "Retirement"};
+    String[] Budget_Items = {"Rent", "Utilities", "Phone", "Internet", "Gym", "Food", "Gas", "Insurance", "Car Loan", "Student Loan", "Charity", "Emergency Fund", "Savings", "Retirement"};
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterItem;
@@ -43,11 +43,16 @@ public class Spent extends AppCompatActivity {
     EditText expenseEditText;
     String expenseFinal;
 
+    Double amountSpent;
+
 
 
     //NEW CODE
     private DBHelper dbHelper;
-    private Context context;
+    private DBAssist dbAssist;
+
+    String item;
+    String currentAmount;
 
 //    public Spent(Context context) {
 //        this.context = context;
@@ -71,6 +76,8 @@ public class Spent extends AppCompatActivity {
         //map the button and edittext from xml
         spendButton = findViewById(R.id.AddSpent);
         AmountSpent = findViewById(R.id.AmountSpent);
+
+        //get the String value from the ExpenseEditText
         ExpenseFromList = findViewById(R.id.textInputLayout);
         expenseEditText = ExpenseFromList.getEditText();
         expenseFinal = expenseEditText.getText().toString();
@@ -92,8 +99,15 @@ public class Spent extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = adapterItem.getItem(position).toString();
-                Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+
+                //this is where I get the item that was selected and I display it in a toast message.
+                //THIS IS WHERE THE "CAR LOAN" WOULD BE HELD. maybe also let them know how much money they
+                //currently have in that category.
+                item = adapterItem.getItem(position);
+                //get the current amount so that the user remembers how much they can spend in that category
+                currentAmount = dbHelper.getDatabyColumnName(replaceSpace(item.replace(" ", "")));
+
+                Toast.makeText(getApplicationContext(), item + ": $" + currentAmount + " is remaining!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -128,10 +142,12 @@ public class Spent extends AppCompatActivity {
     public void processSpending() {
 
         // Retrieve the expense category at the time of button click
-        String expenseFinal = expenseEditText.getText().toString().trim();
+        //String expenseFinal = expenseEditText.getText().toString().trim();
+
+        expenseFinal = item;
         String amountString = AmountSpent.getText().toString().trim();
 
-        // Validate user inputs
+        //either or both the expense box and the amount are empty send error message.
         if (expenseFinal.isEmpty() || amountString.isEmpty()) {
             Toast.makeText(this, "Please enter both category and amount!" + expenseFinal, Toast.LENGTH_SHORT).show();
             return;
@@ -149,7 +165,7 @@ public class Spent extends AppCompatActivity {
         Cursor cursor = dbHelper.getData();
         if (cursor != null && cursor.moveToFirst()) {
             // Check if the category exists in the database
-            int columnIndex = cursor.getColumnIndex(expenseFinal);
+            int columnIndex = cursor.getColumnIndex(replaceSpace(expenseFinal));
             if (columnIndex == -1) {
                 Toast.makeText(this, "Invalid category entered! ", Toast.LENGTH_SHORT).show();
                 cursor.close();
@@ -182,10 +198,10 @@ public class Spent extends AppCompatActivity {
                         expenseFinal.equals("Food") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Food")),
                         expenseFinal.equals("Gas") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Gas")),
                         expenseFinal.equals("Insurance") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Insurance")),
-                        expenseFinal.equals("CarLoan") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("CarLoan")),
-                        expenseFinal.equals("StudentLoan") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("StudentLoan")),
+                        expenseFinal.equals("Car Loan") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("CarLoan")),
+                        expenseFinal.equals("Student Loan") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("StudentLoan")),
                         expenseFinal.equals("Charity") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Charity")),
-                        expenseFinal.equals("EmergencyFund") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("EmergencyFund")),
+                        expenseFinal.equals(replaceSpace("Emergency Fund")) ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("EmergencyFund")),
                         expenseFinal.equals("Savings") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Savings")),
                         expenseFinal.equals("Retirement") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Retirement"))
                 );
@@ -197,13 +213,13 @@ public class Spent extends AppCompatActivity {
                     intent.putExtra("remainingIncome", income);
                     startActivity(intent);
                     finish();
-                    Toast.makeText(this, "Successfully spent $" + amountSpent + " on " + expenseFinal, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Successfully spent $" + amountSpent + " on " + expenseFinal + "!", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(this, "Failed to update the database!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Insufficient funds in " + expenseFinal, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Insufficient funds in " + expenseFinal + "!", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this, "Failed to retrieve budget data!", Toast.LENGTH_SHORT).show();
@@ -212,6 +228,12 @@ public class Spent extends AppCompatActivity {
         if (cursor != null) {
             cursor.close();
         }
+    }
+
+
+    private String replaceSpace(String columnName)
+    {
+        return columnName.replace(" ", "");
     }
 
 

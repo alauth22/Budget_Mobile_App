@@ -26,8 +26,6 @@ import android.widget.Toast;
 /*
 MAIN ISSUES
 1) The drop down list has the two-word phrases put together to match that of the column name in the DB. Need to Fix that.
-2) Maybe Have a Simple Toast message that will pop up when an item is selected to show the person how much money is allocated to that category.
-that will help them avoid re-checking the budget window.
  */
 
 
