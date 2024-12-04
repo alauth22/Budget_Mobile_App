@@ -1,7 +1,6 @@
 package com.example.finalproject.Activity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
@@ -21,10 +20,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.example.finalproject.Database.DBAssist;
 import com.example.finalproject.Database.DBHelper;
-import com.example.finalproject.HomeBase;
 import com.example.finalproject.R;
 import com.google.android.material.textfield.TextInputLayout;
-import android.content.SharedPreferences;
 
 public class Spent extends AppCompatActivity {
 

@@ -50,4 +50,5 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="register_an_account">Register An Account</string>
+    <string name="savings2">Savings</string>
 </resources>

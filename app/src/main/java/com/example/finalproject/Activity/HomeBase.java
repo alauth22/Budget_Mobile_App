@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,11 +17,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.finalproject.Activity.BudgetShow;
-import com.example.finalproject.Activity.MainActivity;
-import com.example.finalproject.Activity.Spent;
 import com.example.finalproject.Database.DBAssist;
 import com.example.finalproject.Database.DBHelper;
+import com.example.finalproject.R;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 public class HomeBase extends AppCompatActivity {
