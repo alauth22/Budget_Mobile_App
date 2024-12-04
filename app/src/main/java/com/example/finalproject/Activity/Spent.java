@@ -21,6 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.example.finalproject.Database.DBAssist;
 import com.example.finalproject.Database.DBHelper;
+import com.example.finalproject.HomeBase;
 import com.example.finalproject.R;
 import com.google.android.material.textfield.TextInputLayout;
 import android.content.SharedPreferences;
@@ -118,7 +119,7 @@ public class Spent extends AppCompatActivity {
         spendButton.setOnClickListener(v -> {
             sound1.start();
             processSpending();
-
+            finish();
         });
 
 
@@ -208,7 +209,7 @@ public class Spent extends AppCompatActivity {
                 if (isUpdated) {
 
                     //get the intent needed to pass to the MainActivity class.
-                    Intent intent = new Intent(Spent.this, MainActivity.class);
+                    Intent intent = new Intent(Spent.this, HomeBase.class);
                     intent.putExtra("remainingIncome", income);
                     startActivity(intent);
                     finish();

@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/textViewTitle2"
         android:layout_width="371dp"
         android:layout_height="54dp"
         android:fontFamily="monospace"
@@ -22,86 +22,70 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintVertical_bias="0.047" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="317dp"
-        android:layout_height="99dp"
-        android:orientation="horizontal"
+    <EditText
+        android:id="@+id/emailEditText2"
+        android:layout_width="359dp"
+        android:layout_height="48dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.181">
-
-
-        <Button
-            android:id="@+id/sdDownloads"
-            android:layout_width="121dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="#006400"
-            android:fontFamily="self-monospace"
-            android:text="Resources"
-            android:textSize="12sp"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/Budget"
-            android:layout_width="117dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="#006400"
-            android:fontFamily="self-monospace"
-            android:text="@string/budget"
-            android:textSize="12sp"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/Spent"
-            android:layout_width="115dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="#006400"
-            android:fontFamily="self-monospace"
-            android:text="@string/spent"
-            android:textSize="12sp"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/circularProgressIndicator"
-        android:layout_width="257dp"
-        android:layout_height="245dp"
-        android:layout_centerInParent="true"
-        android:indeterminate="false"
-        app:indicatorColor="#4CAF50"
-        app:indicatorSize="330dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.438"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665"
-        app:trackColor="#121212"
-        app:trackThickness="50dp" />
+        app:layout_constraintVertical_bias="0.349" />
 
     <TextView
-        android:id="@+id/ViewRemaining"
-        android:layout_width="173dp"
-        android:layout_height="77dp"
+        android:id="@+id/textView"
+        android:layout_width="193dp"
+        android:layout_height="81dp"
         android:gravity="center"
-        android:text="TextView"
-        android:textColor="#FF007F"
-        android:textSize="35sp"
+        android:text="Welcome! Please Login"
+        android:textColor="#006400"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611" />
+        app:layout_constraintVertical_bias="0.193" />
 
+    <EditText
+        android:id="@+id/passwordEditText2"
+        android:layout_width="358dp"
+        android:layout_height="48dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491" />
+
+    <Button
+        android:id="@+id/loginButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.614" />
+
+    <Button
+        android:id="@+id/newuserButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_an_account"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.723" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

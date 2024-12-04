@@ -46,4 +46,8 @@
     <string name="add_new_budget">Add New Budget</string>
     <string name="update_current_budget">Update Current Budget</string>
     <string name="update_budget">Update Budget</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="register_an_account">Register An Account</string>
 </resources>

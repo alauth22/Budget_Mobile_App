@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeBase">
+
+
+    <TextView
+        android:id="@+id/textViewTitle2"
+        android:layout_width="371dp"
+        android:layout_height="54dp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="@string/budgetbee"
+        android:textColor="#FF007F"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="317dp"
+        android:layout_height="99dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.181">
+
+
+        <Button
+            android:id="@+id/sdDownloads2"
+            android:layout_width="121dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#006400"
+            android:fontFamily="self-monospace"
+            android:text="Resources"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/Budget2"
+            android:layout_width="117dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#006400"
+            android:fontFamily="self-monospace"
+            android:text="@string/budget"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/Spent2"
+            android:layout_width="115dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#006400"
+            android:fontFamily="self-monospace"
+            android:text="@string/spent"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/circularProgressIndicator2"
+        android:layout_width="257dp"
+        android:layout_height="245dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="false"
+        app:indicatorColor="#4CAF50"
+        app:indicatorSize="330dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.438"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.665"
+        app:trackColor="#121212"
+        app:trackThickness="50dp" />
+
+    <TextView
+        android:id="@+id/ViewRemaining2"
+        android:layout_width="173dp"
+        android:layout_height="77dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#FF007F"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.611" />
+
+    <ImageView
+        android:id="@+id/LogOUT2"
+        android:layout_width="32dp"
+        android:layout_height="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
+        app:srcCompat="@drawable/baseline_logout_24" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
