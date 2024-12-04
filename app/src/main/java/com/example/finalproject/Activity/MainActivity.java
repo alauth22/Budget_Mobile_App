@@ -17,10 +17,6 @@ import com.example.finalproject.Database.DBAssist;
 import com.example.finalproject.Database.DBHelper;
 import com.example.finalproject.R;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 
 /*
