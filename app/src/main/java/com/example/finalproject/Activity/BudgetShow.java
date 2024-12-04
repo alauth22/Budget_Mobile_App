@@ -121,7 +121,6 @@ public class BudgetShow extends AppCompatActivity {
         String charity = dbAssist.getCharity();
         String emergencyFund = dbAssist.getEmergency();
         String savings = dbAssist.getSavings();
-        String retirement = dbAssist.getRetirement();
 
         // Append data to the StringBuilder
         sb.append("Income: $").append(income).append("\n\n");
@@ -138,7 +137,6 @@ public class BudgetShow extends AppCompatActivity {
         sb.append("Charity: $").append(charity).append("\n\n");
         sb.append("Emergency Fund: $").append(emergencyFund).append("\n\n");
         sb.append("Savings: $").append(savings).append("\n\n");
-        sb.append("Retirement: $").append(retirement).append("\n\n");
 
         // Update the TextView
         tv.setText(sb.toString());

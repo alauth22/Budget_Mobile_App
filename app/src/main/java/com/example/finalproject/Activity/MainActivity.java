@@ -19,13 +19,6 @@ import com.example.finalproject.R;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 
-/*
-MAIN ISSUES
-1) The drop down list has the two-word phrases put together to match that of the column name in the DB. Need to Fix that.
- */
-
-
-
 public class MainActivity extends AppCompatActivity {
 
     TextView Income, Spent, Remaining;

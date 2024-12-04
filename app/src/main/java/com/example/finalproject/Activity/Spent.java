@@ -31,7 +31,7 @@ public class Spent extends AppCompatActivity {
 
     // Declare currentIncome as a member variable
 
-    String[] Budget_Items = {"Rent", "Utilities", "Phone", "Internet", "Gym", "Food", "Gas", "Insurance", "Car Loan", "Student Loan", "Charity", "Emergency Fund", "Savings", "Retirement"};
+    String[] Budget_Items = {"Rent", "Utilities", "Phone", "Internet", "Gym", "Food", "Gas", "Insurance", "Car Loan", "Student Loan", "Charity", "Emergency Fund", "Savings"};
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterItem;
@@ -202,8 +202,7 @@ public class Spent extends AppCompatActivity {
                         expenseFinal.equals("Student Loan") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("StudentLoan")),
                         expenseFinal.equals("Charity") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Charity")),
                         expenseFinal.equals(replaceSpace("Emergency Fund")) ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("EmergencyFund")),
-                        expenseFinal.equals("Savings") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Savings")),
-                        expenseFinal.equals("Retirement") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Retirement"))
+                        expenseFinal.equals("Savings") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Savings"))
                 );
 
                 if (isUpdated) {

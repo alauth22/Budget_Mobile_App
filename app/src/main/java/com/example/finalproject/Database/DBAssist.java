@@ -169,15 +169,6 @@ public class DBAssist {
         return savings;
     }
 
-    public String getRetirement() {
-        String retirement = "";
-        Cursor res = db.getData();
-        if (res != null && res.moveToNext()) {
-            retirement = res.getString(16);
-        }
-        return retirement;
-    }
-
 
     //Now I want to be able to take whatever they select and the amount and subtract that from the Income
 
@@ -226,12 +217,8 @@ public class DBAssist {
             case "Savings":
                 allocatedAmount = Double.parseDouble(getSavings());
                 break;
-            case "Retirement":
-                allocatedAmount = Double.parseDouble(getRetirement());
-                break;
             default:
                 allocatedAmount = 0;
-
         }
 
         return allocatedAmount;

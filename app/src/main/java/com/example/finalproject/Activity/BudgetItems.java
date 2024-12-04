@@ -22,9 +22,9 @@ import com.example.finalproject.R;
 public class BudgetItems extends AppCompatActivity {
 
     private MediaPlayer sound2;
-    EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings, Retirement;
+    EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings;
     TextView BudgetID;
-    Button addButton, updateButton, refreshButton, viewButton;
+    Button addButton, updateButton, refreshButton, viewButton, ADD;
 
     DBHelper db;
 
@@ -62,14 +62,13 @@ public class BudgetItems extends AppCompatActivity {
         StudentLoan = findViewById(R.id.StudentLoan);
         EmergencyFund = findViewById(R.id.EmergencyFund);
         Savings = findViewById(R.id.Savings);
-        Retirement = findViewById(R.id.Retirement);
+
 
 
         updateButton = findViewById(R.id.Update);
         refreshButton = findViewById(R.id.Refresh);
         viewButton = findViewById(R.id.View);
         addButton = findViewById(R.id.AddButton);
-
 
         //these are my checks to ensure that the user cannot just click on buttons here and there.
         String incomePresent = dbAssist.getStartingIncome();
@@ -89,6 +88,40 @@ public class BudgetItems extends AppCompatActivity {
         {
             updateButton.setEnabled(true);
         }
+
+
+
+
+//        ADD.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                String IncomeTXT = Income.getText().toString();
+//                String RentTXT = Rent.getText().toString();
+//                String UtilitiesTXT = Utilities.getText().toString();
+//                String PhoneTXT = Phone.getText().toString();
+//                String InternetTXT = Internet.getText().toString();
+//                String GymTXT = Gym.getText().toString();
+//                String FoodTXT = Food.getText().toString();
+//                String GasTXT = Gas.getText().toString();
+//                String InsuranceTXT = Insurance.getText().toString();
+//                String CarLoanTXT = CarLoan.getText().toString();
+//                String StudentLoanTXT = StudentLoan.getText().toString();
+//                String CharityTXT = Charity.getText().toString();
+//                String EmergencyFundTXT = EmergencyFund.getText().toString();
+//                String SavingsTXT = Savings.getText().toString();
+//                Boolean checkinsertdata = db.insertData(IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
+//                if (checkinsertdata == true)
+//                {
+//                    Toast.makeText(BudgetItems.this, "New Entry ", Toast.LENGTH_SHORT).show();
+//                }
+//                else
+//                {
+//                    Toast.makeText(BudgetItems.this, "New Entry failed.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//        });
+
 
 
 
@@ -116,7 +149,6 @@ public class BudgetItems extends AppCompatActivity {
                 String CharityTXT = Charity.getText().toString();
                 String EmergencyFundTXT = EmergencyFund.getText().toString();
                 String SavingsTXT = Savings.getText().toString();
-                String RetirementTXT = Retirement.getText().toString();
 
                 if (StartingIncomeTXT.isEmpty()) {
                     if (dbAssist.getIncome().isEmpty()) {
@@ -285,15 +317,6 @@ public class BudgetItems extends AppCompatActivity {
                 }
 
 
-                if (RetirementTXT.isEmpty()) {
-                    if (dbAssist.getRetirement().isEmpty()) {
-                        RetirementTXT = "0";
-                    } else {
-                        RetirementTXT = dbAssist.getRetirement();
-                    }
-                } else {
-                    RetirementTXT = Retirement.getText().toString();
-                }
 
 
                 //now ensure that the values do not overexceed the income
@@ -314,9 +337,9 @@ public class BudgetItems extends AppCompatActivity {
                 double charity = Double.parseDouble(CharityTXT);
                 double emergency = Double.parseDouble(EmergencyFundTXT);
                 double savings = Double.parseDouble(SavingsTXT);
-                double retirement = Double.parseDouble(RetirementTXT);
 
-                double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings + retirement;
+
+                double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings;
                 if (income == 0)
                 {
                     Toast.makeText(BudgetItems.this, "Please enter an income first to add a budget.", Toast.LENGTH_SHORT).show();
@@ -334,7 +357,7 @@ public class BudgetItems extends AppCompatActivity {
                 else
                 {
                     //if we are able to actually update the database without error then we are good.
-                    Boolean checkupdatedata = db.initialData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT, RetirementTXT);
+                    Boolean checkupdatedata = db.initialData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
                     //send a good message
                     if (checkupdatedata == true) {
                         Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
@@ -375,7 +398,7 @@ public class BudgetItems extends AppCompatActivity {
                 String CharityTXT = Charity.getText().toString();
                 String EmergencyFundTXT = EmergencyFund.getText().toString();
                 String SavingsTXT = Savings.getText().toString();
-                String RetirementTXT = Retirement.getText().toString();
+
 
 
                 //now we need to check if it is blank. if blank then we need to retrieve the current value in the database.
@@ -536,15 +559,7 @@ public class BudgetItems extends AppCompatActivity {
                 }
 
 
-                if (RetirementTXT.isEmpty()) {
-                    if (dbAssist.getRetirement().isEmpty()) {
-                        RetirementTXT = "0";
-                    } else {
-                        RetirementTXT = dbAssist.getRetirement();
-                    }
-                } else {
-                    RetirementTXT = Retirement.getText().toString();
-                }
+
 
 
                 //now ensure that the values do not overexceed the income
@@ -565,14 +580,13 @@ public class BudgetItems extends AppCompatActivity {
                 double charity = Double.parseDouble(CharityTXT);
                 double emergency = Double.parseDouble(EmergencyFundTXT);
                 double savings = Double.parseDouble(SavingsTXT);
-                double retirement = Double.parseDouble(RetirementTXT);
-                double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings + retirement;
+                double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings;
                 if (total > income) {
                     Toast.makeText(BudgetItems.this, "Total exceeds income. Please adjust values and use zeros.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     //if we are able to actually update the database without error then we are good.
-                    Boolean checkupdatedata = db.updateData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT, RetirementTXT);
+                    Boolean checkupdatedata = db.updateData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
                     //send a good message
                     if (checkupdatedata == true) {
                         Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
@@ -619,7 +633,6 @@ public class BudgetItems extends AppCompatActivity {
                                     Charity.setText("");
                                     EmergencyFund.setText("");
                                     Savings.setText("");
-                                    Retirement.setText("");
                                     Toast.makeText(BudgetItems.this, "All Entries Are Reset!", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(BudgetItems.this, "All Entries Are Not Reset!", Toast.LENGTH_SHORT).show();
@@ -682,9 +695,6 @@ public class BudgetItems extends AppCompatActivity {
                                     buffer.append("Charity : ").append(res.getString(13)).append("\n");
                                     buffer.append("Emergency Fund : ").append(res.getString(14)).append("\n");
                                     buffer.append("Savings : ").append(res.getString(15)).append("\n");
-                                    buffer.append("Retirement : ").append(res.getString(16)).append("\n");
-
-
                                 }
 
                                 //this is also my TESTING
