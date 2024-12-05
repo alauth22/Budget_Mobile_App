@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.finalproject.Animation.RotateSideAnimate;
+import com.example.finalproject.Animation.CircularAnimation;
 import com.example.finalproject.Database.DBAssist;
 import com.example.finalproject.Database.DBHelper;
 import com.example.finalproject.R;
@@ -56,7 +57,7 @@ public class HomeBase extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sound1.start();
+                RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(logout);
                 Intent intent = new Intent(HomeBase.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -104,12 +105,10 @@ public class HomeBase extends AppCompatActivity {
         findViewById(R.id.sdDownloads2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sound1.start();
                 PickTextFile();
             }
         });
-
-
-
 
 
     }
@@ -151,31 +150,17 @@ public class HomeBase extends AppCompatActivity {
             progressValue = (int) ((incomeCurrent / incomeStart) * 100);
         }
 
-        //update the progress value and ensure it is going to be between 0 and 100.
-        progressValue = Math.min(progressValue, 100);
-        incomeTextView.setText(progressValue + "% Left");
-
-
-
-        //below is the code that will deal with the circular progress bar
-        circularProgressIndicator = findViewById(R.id.circularProgressIndicator2);
-
-
       /*
       Here I am using both a handler and a runnable. The handler is the looper.getmainlooper() which allows
       the tasks that needs to be executed to be done on the main thread. I want this as I am only updating the UI circular progress indicator bar.
       The runnable or where it says run() defines which code needs to actually be run after the delay in the loop. in my example, I have the runnable being executed
       after 200 milliseconds delay.
        */
+        incomeTextView.setText(progressValue + "% Left");
+        circularProgressIndicator = findViewById(R.id.circularProgressIndicator2);
+        progressValue = Math.min(progressValue, 100);
         int finalProgressValue = progressValue;
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                // Animate progress from current to the new value
-                circularProgressIndicator.setProgressCompat(finalProgressValue, true);
-            }
-        }, 200);
+        new CircularAnimation(circularProgressIndicator, finalProgressValue);
 
     }
 

@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.finalproject.Animation.RotateSideAnimate;
 import com.example.finalproject.Database.DBAssist;
 import com.example.finalproject.Database.DBHelper;
 import com.example.finalproject.R;
@@ -123,6 +125,7 @@ public class Spent extends AppCompatActivity {
         //arrow button
         ImageView arrow4 = findViewById(R.id.backArrow4);
         arrow4.setOnClickListener(v -> {
+            RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(arrow4);
             finish();
         });
 

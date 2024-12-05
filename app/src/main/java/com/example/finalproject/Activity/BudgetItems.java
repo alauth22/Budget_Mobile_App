@@ -2,9 +2,7 @@ package com.example.finalproject.Activity;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.finalproject.Animation.RotateSideAnimate;
 import com.example.finalproject.Database.DBAssist;
 import com.example.finalproject.Database.DBHelper;
 import com.example.finalproject.Database.DBSingleton;
@@ -21,7 +21,6 @@ import com.example.finalproject.R;
 
 public class BudgetItems extends AppCompatActivity {
 
-    private MediaPlayer sound2;
     EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings;
     TextView BudgetID;
     Button addButton, updateButton, refreshButton, viewButton, ADD;
@@ -40,10 +39,9 @@ public class BudgetItems extends AppCompatActivity {
         // My singleton will return an instance of DBHelper.
         db = DBSingleton.getInstance(this);
 
-        sound2 = MediaPlayer.create(this, R.raw.clickbutton);
-
         ImageView arrow1 = findViewById(R.id.backArrow3);
         arrow1.setOnClickListener(v -> {
+            RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(arrow1);
             finish();
         });
 
@@ -128,7 +126,6 @@ public class BudgetItems extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sound2.start();
 
 
                 //get the starting income too for the database column index 1
@@ -381,7 +378,7 @@ public class BudgetItems extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                sound2.start();
+
 
                 //get the values here.
                 String IncomeTXT = Income.getText().toString();
@@ -607,7 +604,7 @@ public class BudgetItems extends AppCompatActivity {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sound2.start();
+
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(BudgetItems.this);
                 builder.setMessage("Are you sure want to reset all entries and begin a new budget?")
@@ -666,8 +663,6 @@ public class BudgetItems extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //sendDBValuesToAnotherActivity();
-                sound2.start();
-
 
                                 // Proceed with the database action
                                 Cursor res = db.getData();

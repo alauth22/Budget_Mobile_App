@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
 //            @Override
 //            public void run() {
 //
-//                // Animate progress from current to the new value
+//                // RotateSideAnimate progress from current to the new value
 //                circularProgressIndicator.setProgressCompat(finalProgressValue, true);
 //            }
 //        }, 200);
