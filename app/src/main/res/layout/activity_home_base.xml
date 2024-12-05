@@ -115,18 +115,5 @@
         app:layout_constraintVertical_bias="0.023"
         app:srcCompat="@drawable/baseline_logout_24" />
 
-    <Button
-        android:id="@+id/SavingsMonitor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/savings2"
-        android:backgroundTint="#FF007F"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.959" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

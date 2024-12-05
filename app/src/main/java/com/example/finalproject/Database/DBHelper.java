@@ -52,6 +52,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "EmergencyFund TEXT, " +
                 "Savings TEXT);");
 
+        insertData();
+
     }
 
     @Override
@@ -61,37 +63,36 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-//        public Boolean insertData(String income, String rent, String utilities, String phone, String internet, String gym, String food, String gas, String insurance, String carLoan, String studentLoan, String charity, String emergencyFund, String savings) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//
-//        //primary key make it Autoincrement and it will always be 1.
-//            contentValues.put("IncomeStart", income);
-//            contentValues.put("Income", income);
-//            contentValues.put("Rent", rent);
-//            contentValues.put("Utilities", utilities);
-//            contentValues.put("Phone", phone);
-//            contentValues.put("Internet", internet);
-//            contentValues.put("Gym", gym);
-//            contentValues.put("Food", food);
-//            contentValues.put("Gas", gas);
-//            contentValues.put("Insurance", insurance);
-//            contentValues.put("CarLoan", carLoan);
-//            contentValues.put("StudentLoan", studentLoan);
-//            contentValues.put("Charity", charity);
-//            contentValues.put("EmergencyFund", emergencyFund);
-//            contentValues.put("Savings", savings);
-//            //conflict replace will ensure only one row exists, if an entyr with the same income key exists it will overwrite it.
-//            long result = db.insertWithOnConflict("Budget", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
-//            Log.d("DB_Insert", "Insert Result: " + result);
-//            if (result == -1) {
-//                return false;
-//            } else {
-//                return true;
-//            }
-//
-//    }
+        public Boolean insertData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
 
+        //primary key make it Autoincrement and it will always be 1.
+            contentValues.put("IncomeStart", "0");
+            contentValues.put("Income", "0");
+            contentValues.put("Rent", "0");
+            contentValues.put("Utilities", "0");
+            contentValues.put("Phone", "0");
+            contentValues.put("Internet", "0");
+            contentValues.put("Gym", "0");
+            contentValues.put("Food", "0");
+            contentValues.put("Gas", "0");
+            contentValues.put("Insurance", "0");
+            contentValues.put("CarLoan", "0");
+            contentValues.put("StudentLoan", "0");
+            contentValues.put("Charity", "0");
+            contentValues.put("EmergencyFund", "0");
+            contentValues.put("Savings", "0");
+            //conflict replace will ensure only one row exists, if an entyr with the same income key exists it will overwrite it.
+            long result = db.insertWithOnConflict("Budget", null, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
+            Log.d("DB_Insert", "Insert Result: " + result);
+            if (result == -1) {
+                return false;
+            } else {
+                return true;
+            }
+
+    }
 
 
 

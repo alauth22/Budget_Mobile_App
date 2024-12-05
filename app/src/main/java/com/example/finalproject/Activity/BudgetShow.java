@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.os.Handler;
 
 public class BudgetShow extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class BudgetShow extends AppCompatActivity {
 
     private MediaPlayer sound3;
     TextView tv;
+    ImageView arrow1;
     Button RefreshButton;
     DBHelper db;
 
@@ -73,10 +77,15 @@ public class BudgetShow extends AppCompatActivity {
 
 
             //code for arrow button
-            ImageView arrow1 = findViewById(R.id.backArrow1);
+            arrow1 = findViewById(R.id.backArrow1);
             arrow1.setOnClickListener(v -> {
+                startJiggleAnimation(arrow1);
                 finish();
-            });
+                    });
+
+//            arrow1.setOnClickListener(v -> {
+//                finish();
+//            });
 
             //code for the floating action button to obtain the new budget
             fab1 = findViewById(R.id.BudgetAdd);
@@ -142,6 +151,36 @@ public class BudgetShow extends AppCompatActivity {
         tv.setText(sb.toString());
     }
 
+
+
+
+    private void startJiggleAnimation(final ImageView icon) {
+        final Handler handler = new Handler();
+        final int animationDuration = 200; // milliseconds for each jiggle
+
+        final Runnable jiggleRunnable = new Runnable() {
+            @Override
+            public void run() {
+                RotateAnimation rotate = new RotateAnimation(
+                        -10f, 10f, // From -10 degrees to 10 degrees
+                        Animation.RELATIVE_TO_SELF, 0.5f, // Pivot X at the center
+                        Animation.RELATIVE_TO_SELF, 0.5f // Pivot Y at the center
+                );
+                rotate.setDuration(animationDuration);
+                rotate.setRepeatMode(Animation.REVERSE);
+                rotate.setRepeatCount(1);
+
+                icon.startAnimation(rotate);
+
+                // Repeat the animation every 500ms (or adjust to your preference)
+                handler.postDelayed(this, 500);
+            }
+        };
+
+        // Start the jiggle animation
+        handler.post(jiggleRunnable);
+
+    };
 
 
 }
