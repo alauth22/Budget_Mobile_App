@@ -18,16 +18,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.finalproject.Animation.RotateSideAnimate;
-import com.example.finalproject.Database.DBAssist;
-import com.example.finalproject.Database.DBHelper;
+import com.example.finalproject.Database.DBAssist2;
+import com.example.finalproject.Database.DBHelper2;
 import com.example.finalproject.R;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Spent extends AppCompatActivity {
 
     private MediaPlayer sound1;
+
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    String userID = auth.getCurrentUser().getUid();
 
     // Declare currentIncome as a member variable
 
@@ -48,8 +51,8 @@ public class Spent extends AppCompatActivity {
 
 
     //NEW CODE
-    private DBHelper dbHelper;
-    private DBAssist dbAssist;
+    private DBHelper2 dbHelper;
+    private DBAssist2 dbAssist;
 
     String item;
     String currentAmount;
@@ -88,7 +91,7 @@ public class Spent extends AppCompatActivity {
         // Initialize DBAssist
         //dbAssist = new DBAssist(this);
         // Initialize the database helper
-        dbHelper = new DBHelper(this);
+        dbHelper = new DBHelper2(this);
 
 
 
@@ -105,7 +108,7 @@ public class Spent extends AppCompatActivity {
                 //currently have in that category.
                 item = adapterItem.getItem(position);
                 //get the current amount so that the user remembers how much they can spend in that category
-                currentAmount = dbHelper.getDatabyColumnName(replaceSpace(item.replace(" ", "")));
+                currentAmount = dbHelper.getDatabyColumnName(userID, replaceSpace(item.replace(" ", "")));
 
                 Toast.makeText(getApplicationContext(), item + ": $" + currentAmount + " is remaining!", Toast.LENGTH_SHORT).show();
             }
@@ -163,7 +166,7 @@ public class Spent extends AppCompatActivity {
         }
 
         // Fetch budget data from the database
-        Cursor cursor = dbHelper.getData();
+        Cursor cursor = dbHelper.getData(userID);
         if (cursor != null && cursor.moveToFirst()) {
             // Check if the category exists in the database
             int columnIndex = cursor.getColumnIndex(replaceSpace(expenseFinal));
@@ -175,8 +178,8 @@ public class Spent extends AppCompatActivity {
 
             // Get current values for the category and income
             double categoryAmount = Double.parseDouble(cursor.getString(columnIndex));
-            double income = Double.parseDouble(cursor.getString(2));
-            String startingIncome = cursor.getString(1);
+            double income = Double.parseDouble(cursor.getString(3));
+            String startingIncome = cursor.getString(2);
 
             // Check if there are sufficient funds
             if (categoryAmount >= amountSpent) {
@@ -188,7 +191,7 @@ public class Spent extends AppCompatActivity {
 
                 // Update the database
                 @SuppressLint("Range") boolean isUpdated = dbHelper.updateData(
-                        1, // Assuming BudgetID is 1
+                        userID,
                         String.valueOf(income),
                         //I want to say if the expenseFinal.equals("Rent") I want to grab it from index 2
                         expenseFinal.equals("Rent") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Rent")),

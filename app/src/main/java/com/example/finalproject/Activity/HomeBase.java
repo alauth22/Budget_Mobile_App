@@ -13,16 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.finalproject.Animation.RotateSideAnimate;
 import com.example.finalproject.Animation.CircularAnimation;
-import com.example.finalproject.Database.DBAssist;
-import com.example.finalproject.Database.DBHelper;
+import com.example.finalproject.Database.DBAssist2;
+import com.example.finalproject.Database.DBHelper2;
 import com.example.finalproject.R;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeBase extends AppCompatActivity {
 
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    String userID = auth.getCurrentUser().getUid();
     TextView Income, Spent, Remaining;
 
     private MediaPlayer sound1;
@@ -30,8 +32,8 @@ public class HomeBase extends AppCompatActivity {
     Button Home;
 
     ImageView logout;
-    DBAssist dbAssist;
-    DBHelper dbHelper;
+    DBAssist2 dbAssist;
+    DBHelper2 dbHelper;
 
     //SD DOWNLOADS
     private final int SelectVideo = 1;
@@ -47,8 +49,8 @@ public class HomeBase extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_base);
 
-        dbAssist = new DBAssist(this);
-        dbHelper = new DBHelper(this);
+        dbAssist = new DBAssist2(this);
+        dbHelper = new DBHelper2(this);
 
         sound1 = MediaPlayer.create(this, R.raw.dot);
 
@@ -122,14 +124,14 @@ public class HomeBase extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String updatedIncome = dbAssist.getIncome(); // Query the database for the income
+        String updatedIncome = dbAssist.getIncome(userID); // Query the database for the income
         TextView incomeTextView = findViewById(R.id.ViewRemaining2);
         //incomeTextView.setText("Income: $" + updatedIncome);
 
 
         //ok now we begin out work on the circular progress bar
-        String incomeStartStr = dbAssist.getStartingIncome();
-        String incomeCurrentStr = dbAssist.getIncome();
+        String incomeStartStr = dbAssist.getStartingIncome(userID);
+        String incomeCurrentStr = dbAssist.getIncome(userID);
 
 
         double incomeStart = 1;

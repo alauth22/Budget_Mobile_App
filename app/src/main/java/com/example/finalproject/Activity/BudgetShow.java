@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.finalproject.Animation.RotateSideAnimate;
-import com.example.finalproject.Database.DBAssist;
-import com.example.finalproject.Database.DBHelper;
+import com.example.finalproject.Database.DBAssist2;
+import com.example.finalproject.Database.DBHelper2;
 import com.example.finalproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -21,6 +22,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class BudgetShow extends AppCompatActivity {
 
 
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    String userID = auth.getCurrentUser().getUid();
 
     private MediaPlayer sound2;
 
@@ -28,10 +31,10 @@ public class BudgetShow extends AppCompatActivity {
     TextView tv;
     ImageView arrow1;
     Button RefreshButton;
-    DBHelper db;
+    DBHelper2 db;
 
     String income;
-   DBAssist dbAssist = new DBAssist(this);
+   DBAssist2 dbAssist = new DBAssist2(this);
 
     //RecyclerView recyclerView;
     FloatingActionButton fab1;
@@ -56,7 +59,7 @@ public class BudgetShow extends AppCompatActivity {
             setContentView(R.layout.activity_budgetshow);
 
             //need to give the DBHelper the correct context.
-            db = new DBHelper(this);
+            db = new DBHelper2(this);
 
             sound2 = MediaPlayer.create(this, R.raw.messageincoming);
             sound3 = MediaPlayer.create(this, R.raw.clickbutton);
@@ -97,28 +100,28 @@ public class BudgetShow extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateBudgetView();
+        updateBudgetView(userID);
     }
 
 
-    private void updateBudgetView() {
+    private void updateBudgetView(String userID) {
         StringBuilder sb = new StringBuilder();
 
         // Fetch values from the database
-        String income = dbAssist.getIncome();
-        String rent = dbAssist.getRent();
-        String utilities = dbAssist.getUtilities();
-        String phone = dbAssist.getPhone();
-        String internet = dbAssist.getInternet();
-        String gym = dbAssist.getGym();
-        String food = dbAssist.getFood();
-        String gas = dbAssist.getGas();
-        String insurance = dbAssist.getInsurance();
-        String carLoan = dbAssist.getCar();
-        String studentLoan = dbAssist.getStudent();
-        String charity = dbAssist.getCharity();
-        String emergencyFund = dbAssist.getEmergency();
-        String savings = dbAssist.getSavings();
+        String income = dbAssist.getIncome(userID);
+        String rent = dbAssist.getRent(userID);
+        String utilities = dbAssist.getUtilities(userID);
+        String phone = dbAssist.getPhone(userID);
+        String internet = dbAssist.getInternet(userID);
+        String gym = dbAssist.getGym(userID);
+        String food = dbAssist.getFood(userID);
+        String gas = dbAssist.getGas(userID);
+        String insurance = dbAssist.getInsurance(userID);
+        String carLoan = dbAssist.getCar(userID);
+        String studentLoan = dbAssist.getStudent(userID);
+        String charity = dbAssist.getCharity(userID);
+        String emergencyFund = dbAssist.getEmergency(userID);
+        String savings = dbAssist.getSavings(userID);
 
         // Append data to the StringBuilder
         sb.append("Income: $").append(income).append("\n\n");

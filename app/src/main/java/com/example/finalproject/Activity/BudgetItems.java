@@ -12,22 +12,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.finalproject.Animation.RotateSideAnimate;
-import com.example.finalproject.Database.DBAssist;
-import com.example.finalproject.Database.DBHelper;
-import com.example.finalproject.Database.DBSingleton;
+import com.example.finalproject.Database.DBAssist2;
+import com.example.finalproject.Database.DBHelper2;
 import com.example.finalproject.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BudgetItems extends AppCompatActivity {
+
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    String userID = auth.getCurrentUser().getUid();
+    String userEmail = auth.getCurrentUser().getEmail();
 
     EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings;
     TextView BudgetID;
     Button addButton, updateButton, refreshButton, viewButton, ADD;
 
-    DBHelper db;
+    DBHelper2 db;
 
-    DBAssist dbAssist = new DBAssist(this);
+    DBAssist2 dbAssist = new DBAssist2(this);
 
     @SuppressLint("CutPasteId")
     @Override
@@ -36,9 +39,10 @@ public class BudgetItems extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_budgetitems);
 
-        // My singleton will return an instance of DBHelper.
-        db = DBSingleton.getInstance(this);
+        //declare the database.
+        db = new DBHelper2(this);
 
+        //arrow icon
         ImageView arrow1 = findViewById(R.id.backArrow3);
         arrow1.setOnClickListener(v -> {
             RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(arrow1);
@@ -46,6 +50,7 @@ public class BudgetItems extends AppCompatActivity {
         });
 
 
+        //get my edit text fields
         Income = findViewById(R.id.Income);
         Rent = findViewById(R.id.RentMortgage);
         Food = findViewById(R.id.Food);
@@ -63,13 +68,15 @@ public class BudgetItems extends AppCompatActivity {
 
 
 
+        //my buttons
         updateButton = findViewById(R.id.Update);
         refreshButton = findViewById(R.id.Refresh);
         viewButton = findViewById(R.id.View);
         addButton = findViewById(R.id.AddButton);
 
+
         //these are my checks to ensure that the user cannot just click on buttons here and there.
-        String incomePresent = dbAssist.getStartingIncome();
+        String incomePresent = dbAssist.getStartingIncome(userID);
         if(incomePresent.isEmpty()){
             addButton.setEnabled(true);
         }
@@ -123,15 +130,13 @@ public class BudgetItems extends AppCompatActivity {
 
 
 
+        //add the new record now in the budget db.
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-                //get the starting income too for the database column index 1
+                //get the starting income too for the database column index 2
                 String StartingIncomeTXT = Income.getText().toString();
-                //I don't think I need this....
-                //get the values here.
                 String IncomeTXT = Income.getText().toString();
                 String RentTXT = Rent.getText().toString();
                 String UtilitiesTXT = Utilities.getText().toString();
@@ -148,12 +153,16 @@ public class BudgetItems extends AppCompatActivity {
                 String SavingsTXT = Savings.getText().toString();
 
                 if (StartingIncomeTXT.isEmpty()) {
-                    if (dbAssist.getIncome().isEmpty()) {
+                    if (dbAssist.getIncome(userID).isEmpty()) {
                         StartingIncomeTXT = "0";
-                    } else {
-                        StartingIncomeTXT = dbAssist.getStartingIncome();
                     }
-                } else {
+                    else
+                    {
+                        StartingIncomeTXT = dbAssist.getStartingIncome(userID);
+                    }
+                }
+                else
+                {
                     StartingIncomeTXT = Income.getText().toString();
                 }
 
@@ -161,23 +170,26 @@ public class BudgetItems extends AppCompatActivity {
                 //income this is getting it
                 if (IncomeTXT.isEmpty()) {
 
-                    if (dbAssist.getIncome().isEmpty()) {
+                    if (dbAssist.getIncome(userID).isEmpty()) {
                         IncomeTXT = "0";
 
-                    } else {
-                        IncomeTXT = dbAssist.getIncome();
+                    } else
+                    {
+                        IncomeTXT = dbAssist.getIncome(userID);
                     }
 
-                } else {
+                }
+                else
+                {
                     IncomeTXT = Income.getText().toString();
                 }
 
                 //rent
                 if (RentTXT.isEmpty()) {
-                    if (dbAssist.getRent().isEmpty()) {
+                    if (dbAssist.getRent(userID).isEmpty()) {
                         RentTXT = "0";
                     } else {
-                        RentTXT = dbAssist.getRent();
+                        RentTXT = dbAssist.getRent(userID);
                     }
                 } else {
                     RentTXT = Rent.getText().toString();
@@ -186,10 +198,10 @@ public class BudgetItems extends AppCompatActivity {
 
                 //Utilities
                 if (UtilitiesTXT.isEmpty()) {
-                    if (dbAssist.getUtilities().isEmpty()) {
+                    if (dbAssist.getUtilities(userID).isEmpty()) {
                         UtilitiesTXT = "0";
                     } else {
-                        UtilitiesTXT = dbAssist.getUtilities();
+                        UtilitiesTXT = dbAssist.getUtilities(userID);
                     }
                 } else {
                     UtilitiesTXT = Utilities.getText().toString();
@@ -198,10 +210,10 @@ public class BudgetItems extends AppCompatActivity {
 
                 //phone
                 if (PhoneTXT.isEmpty()) {
-                    if (dbAssist.getPhone().isEmpty()) {
+                    if (dbAssist.getPhone(userID).isEmpty()) {
                         PhoneTXT = "0";
                     } else {
-                        PhoneTXT = dbAssist.getPhone();
+                        PhoneTXT = dbAssist.getPhone(userID);
                     }
                 } else {
                     PhoneTXT = Phone.getText().toString();
@@ -209,10 +221,10 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (InternetTXT.isEmpty()) {
-                    if (dbAssist.getInternet().isEmpty()) {
+                    if (dbAssist.getInternet(userID).isEmpty()) {
                         InternetTXT = "0";
                     } else {
-                        InternetTXT = dbAssist.getInternet();
+                        InternetTXT = dbAssist.getInternet(userID);
                     }
                 } else {
                     InternetTXT = Internet.getText().toString();
@@ -220,10 +232,10 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (GymTXT.isEmpty()) {
-                    if (dbAssist.getGym().isEmpty()) {
+                    if (dbAssist.getGym(userID).isEmpty()) {
                         GymTXT = "0";
                     } else {
-                        GymTXT = dbAssist.getGym();
+                        GymTXT = dbAssist.getGym(userID);
                     }
                 } else {
                     GymTXT = Gym.getText().toString();
@@ -231,30 +243,30 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (FoodTXT.isEmpty()) {
-                    if (dbAssist.getFood().isEmpty()) {
+                    if (dbAssist.getFood(userID).isEmpty()) {
                         FoodTXT = "0";
                     } else {
-                        FoodTXT = dbAssist.getFood();
+                        FoodTXT = dbAssist.getFood(userID);
                     }
                 } else {
                     FoodTXT = Food.getText().toString();
                 }
 
                 if (GasTXT.isEmpty()) {
-                    if (dbAssist.getGas().isEmpty()) {
+                    if (dbAssist.getGas(userID).isEmpty()) {
                         GasTXT = "0";
                     } else {
-                        GasTXT = dbAssist.getGas();
+                        GasTXT = dbAssist.getGas(userID);
                     }
                 } else {
                     GasTXT = Gas.getText().toString();
                 }
 
                 if (InsuranceTXT.isEmpty()) {
-                    if (dbAssist.getInsurance().isEmpty()) {
+                    if (dbAssist.getInsurance(userID).isEmpty()) {
                         InsuranceTXT = "0";
                     } else {
-                        InsuranceTXT = dbAssist.getInsurance();
+                        InsuranceTXT = dbAssist.getInsurance(userID);
                     }
                 } else {
                     InsuranceTXT = Insurance.getText().toString();
@@ -262,30 +274,30 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (CarLoanTXT.isEmpty()) {
-                    if (dbAssist.getCar().isEmpty()) {
+                    if (dbAssist.getCar(userID).isEmpty()) {
                         CarLoanTXT = "0";
                     } else {
-                        CarLoanTXT = dbAssist.getCar();
+                        CarLoanTXT = dbAssist.getCar(userID);
                     }
                 } else {
                     CarLoanTXT = CarLoan.getText().toString();
                 }
 
                 if (StudentLoanTXT.isEmpty()) {
-                    if (dbAssist.getStudent().isEmpty()) {
+                    if (dbAssist.getStudent(userID).isEmpty()) {
                         StudentLoanTXT = "0";
                     } else {
-                        StudentLoanTXT = dbAssist.getStudent();
+                        StudentLoanTXT = dbAssist.getStudent(userID);
                     }
                 } else {
                     StudentLoanTXT = StudentLoan.getText().toString();
                 }
 
                 if (CharityTXT.isEmpty()) {
-                    if (dbAssist.getCharity().isEmpty()) {
+                    if (dbAssist.getCharity(userID).isEmpty()) {
                         CharityTXT = "0";
                     } else {
-                        CharityTXT = dbAssist.getCharity();
+                        CharityTXT = dbAssist.getCharity(userID);
                     }
                 } else {
                     CharityTXT = Charity.getText().toString();
@@ -293,10 +305,10 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (EmergencyFundTXT.isEmpty()) {
-                    if (dbAssist.getEmergency().isEmpty()) {
+                    if (dbAssist.getEmergency(userID).isEmpty()) {
                         EmergencyFundTXT = "0";
                     } else {
-                        EmergencyFundTXT = dbAssist.getEmergency();
+                        EmergencyFundTXT = dbAssist.getEmergency(userID);
                     }
                 } else {
                     EmergencyFundTXT = EmergencyFund.getText().toString();
@@ -304,10 +316,10 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (SavingsTXT.isEmpty()) {
-                    if (dbAssist.getSavings().isEmpty()) {
+                    if (dbAssist.getSavings(userID).isEmpty()) {
                         SavingsTXT = "0";
                     } else {
-                        SavingsTXT = dbAssist.getSavings();
+                        SavingsTXT = dbAssist.getSavings(userID);
                     }
                 } else {
                     SavingsTXT = Savings.getText().toString();
@@ -353,15 +365,15 @@ public class BudgetItems extends AppCompatActivity {
                 }
                 else
                 {
-                    //if we are able to actually update the database without error then we are good.
-                    Boolean checkupdatedata = db.initialData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
+                    //we are inserting this now into the database
+                    Boolean checkupdatedata = db.insertData(userID, StartingIncomeTXT, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
                     //send a good message
                     if (checkupdatedata == true) {
-                        Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BudgetItems.this, "Budget Added ", Toast.LENGTH_SHORT).show();
                     }
                     //else if it is not then send a bad message
                     else {
-                        Toast.makeText(BudgetItems.this, "Entry Not Updated.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BudgetItems.this, "Budget Not Added.", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -374,13 +386,15 @@ public class BudgetItems extends AppCompatActivity {
         });
 
 
+
+        //UPDATE BUTTON
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-
                 //get the values here.
+                //see how I am NOT grabbing the StartingIncome value here!!!!
                 String IncomeTXT = Income.getText().toString();
                 String RentTXT = Rent.getText().toString();
                 String UtilitiesTXT = Utilities.getText().toString();
@@ -399,15 +413,14 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 //now we need to check if it is blank. if blank then we need to retrieve the current value in the database.
-
                 //income this is getting it
                 if (IncomeTXT.isEmpty()) {
 
-                    if (dbAssist.getIncome().isEmpty()) {
+                    if (dbAssist.getIncome(userID).isEmpty()) {
                         IncomeTXT = "0";
 
                     } else {
-                        IncomeTXT = dbAssist.getIncome();
+                        IncomeTXT = dbAssist.getIncome(userID);
                     }
 
                 } else {
@@ -416,10 +429,10 @@ public class BudgetItems extends AppCompatActivity {
 
                 //rent
                 if (RentTXT.isEmpty()) {
-                    if (dbAssist.getRent().isEmpty()) {
+                    if (dbAssist.getRent(userID).isEmpty()) {
                         RentTXT = "0";
                     } else {
-                        RentTXT = dbAssist.getRent();
+                        RentTXT = dbAssist.getRent(userID);
                     }
                 } else {
                     RentTXT = Rent.getText().toString();
@@ -428,10 +441,10 @@ public class BudgetItems extends AppCompatActivity {
 
                 //Utilities
                 if (UtilitiesTXT.isEmpty()) {
-                    if (dbAssist.getUtilities().isEmpty()) {
+                    if (dbAssist.getUtilities(userID).isEmpty()) {
                         UtilitiesTXT = "0";
                     } else {
-                        UtilitiesTXT = dbAssist.getUtilities();
+                        UtilitiesTXT = dbAssist.getUtilities(userID);
                     }
                 } else {
                     UtilitiesTXT = Utilities.getText().toString();
@@ -440,10 +453,10 @@ public class BudgetItems extends AppCompatActivity {
 
                 //phone
                 if (PhoneTXT.isEmpty()) {
-                    if (dbAssist.getPhone().isEmpty()) {
+                    if (dbAssist.getPhone(userID).isEmpty()) {
                         PhoneTXT = "0";
                     } else {
-                        PhoneTXT = dbAssist.getPhone();
+                        PhoneTXT = dbAssist.getPhone(userID);
                     }
                 } else {
                     PhoneTXT = Phone.getText().toString();
@@ -451,10 +464,10 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (InternetTXT.isEmpty()) {
-                    if (dbAssist.getInternet().isEmpty()) {
+                    if (dbAssist.getInternet(userID).isEmpty()) {
                         InternetTXT = "0";
                     } else {
-                        InternetTXT = dbAssist.getInternet();
+                        InternetTXT = dbAssist.getInternet(userID);
                     }
                 } else {
                     InternetTXT = Internet.getText().toString();
@@ -462,10 +475,10 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (GymTXT.isEmpty()) {
-                    if (dbAssist.getGym().isEmpty()) {
+                    if (dbAssist.getGym(userID).isEmpty()) {
                         GymTXT = "0";
                     } else {
-                        GymTXT = dbAssist.getGym();
+                        GymTXT = dbAssist.getGym(userID);
                     }
                 } else {
                     GymTXT = Gym.getText().toString();
@@ -473,30 +486,30 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (FoodTXT.isEmpty()) {
-                    if (dbAssist.getFood().isEmpty()) {
+                    if (dbAssist.getFood(userID).isEmpty()) {
                         FoodTXT = "0";
                     } else {
-                        FoodTXT = dbAssist.getFood();
+                        FoodTXT = dbAssist.getFood(userID);
                     }
                 } else {
                     FoodTXT = Food.getText().toString();
                 }
 
                 if (GasTXT.isEmpty()) {
-                    if (dbAssist.getGas().isEmpty()) {
+                    if (dbAssist.getGas(userID).isEmpty()) {
                         GasTXT = "0";
                     } else {
-                        GasTXT = dbAssist.getGas();
+                        GasTXT = dbAssist.getGas(userID);
                     }
                 } else {
                     GasTXT = Gas.getText().toString();
                 }
 
                 if (InsuranceTXT.isEmpty()) {
-                    if (dbAssist.getInsurance().isEmpty()) {
+                    if (dbAssist.getInsurance(userID).isEmpty()) {
                         InsuranceTXT = "0";
                     } else {
-                        InsuranceTXT = dbAssist.getInsurance();
+                        InsuranceTXT = dbAssist.getInsurance(userID);
                     }
                 } else {
                     InsuranceTXT = Insurance.getText().toString();
@@ -504,30 +517,30 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (CarLoanTXT.isEmpty()) {
-                    if (dbAssist.getCar().isEmpty()) {
+                    if (dbAssist.getCar(userEmail).isEmpty()) {
                         CarLoanTXT = "0";
                     } else {
-                        CarLoanTXT = dbAssist.getCar();
+                        CarLoanTXT = dbAssist.getCar(userID);
                     }
                 } else {
                     CarLoanTXT = CarLoan.getText().toString();
                 }
 
                 if (StudentLoanTXT.isEmpty()) {
-                    if (dbAssist.getStudent().isEmpty()) {
+                    if (dbAssist.getStudent(userID).isEmpty()) {
                         StudentLoanTXT = "0";
                     } else {
-                        StudentLoanTXT = dbAssist.getStudent();
+                        StudentLoanTXT = dbAssist.getStudent(userID);
                     }
                 } else {
                     StudentLoanTXT = StudentLoan.getText().toString();
                 }
 
                 if (CharityTXT.isEmpty()) {
-                    if (dbAssist.getCharity().isEmpty()) {
+                    if (dbAssist.getCharity(userID).isEmpty()) {
                         CharityTXT = "0";
                     } else {
-                        CharityTXT = dbAssist.getCharity();
+                        CharityTXT = dbAssist.getCharity(userID);
                     }
                 } else {
                     CharityTXT = Charity.getText().toString();
@@ -535,10 +548,10 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (EmergencyFundTXT.isEmpty()) {
-                    if (dbAssist.getEmergency().isEmpty()) {
+                    if (dbAssist.getEmergency(userID).isEmpty()) {
                         EmergencyFundTXT = "0";
                     } else {
-                        EmergencyFundTXT = dbAssist.getEmergency();
+                        EmergencyFundTXT = dbAssist.getEmergency(userID);
                     }
                 } else {
                     EmergencyFundTXT = EmergencyFund.getText().toString();
@@ -546,17 +559,14 @@ public class BudgetItems extends AppCompatActivity {
 
 
                 if (SavingsTXT.isEmpty()) {
-                    if (dbAssist.getSavings().isEmpty()) {
+                    if (dbAssist.getSavings(userID).isEmpty()) {
                         SavingsTXT = "0";
                     } else {
-                        SavingsTXT = dbAssist.getSavings();
+                        SavingsTXT = dbAssist.getSavings(userID);
                     }
                 } else {
                     SavingsTXT = Savings.getText().toString();
                 }
-
-
-
 
 
                 //now ensure that the values do not overexceed the income
@@ -583,7 +593,7 @@ public class BudgetItems extends AppCompatActivity {
                     return;
                 } else {
                     //if we are able to actually update the database without error then we are good.
-                    Boolean checkupdatedata = db.updateData(1, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
+                    Boolean checkupdatedata = db.updateData(userID, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
                     //send a good message
                     if (checkupdatedata == true) {
                         Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
@@ -601,6 +611,7 @@ public class BudgetItems extends AppCompatActivity {
 
 
 
+        //DELETE BUTTON!!!!
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -613,7 +624,7 @@ public class BudgetItems extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 // Proceed with the database action
-                                Boolean checkresetdata = db.resetData();
+                                Boolean checkresetdata = db.deleteData(userID);
 
                                 if (checkresetdata == true) {
                                     Income.setText("");
@@ -656,6 +667,10 @@ public class BudgetItems extends AppCompatActivity {
         });
 
 
+
+
+
+
         //let's do practice sending a message when the button is clicked. YES or NO to proceed.
         //THIS WILL NOT STAY THIS IS MY TEST!!!!
         viewButton.setOnClickListener(new View.OnClickListener() {
@@ -665,7 +680,7 @@ public class BudgetItems extends AppCompatActivity {
                 //sendDBValuesToAnotherActivity();
 
                                 // Proceed with the database action
-                                Cursor res = db.getData();
+                                Cursor res = db.getData(userID);
                                 if (res.getCount() == 0) {
                                     Toast.makeText(BudgetItems.this, "No entry exists", Toast.LENGTH_SHORT).show();
                                     return;
@@ -674,23 +689,24 @@ public class BudgetItems extends AppCompatActivity {
                                 while (res.moveToNext()) {
                                     //this is my check to ensure I am only using 1 ID.
                                     buffer.append("ID: ").append(res.getString(0)).append("\n");
-                                    buffer.append("Starting Income: ").append(res.getString(1)).append("\n");
-
-                                    buffer.append("Income: ").append(res.getString(2)).append("\n");
-                                    buffer.append("Rent : ").append(res.getString(3)).append("\n");
-                                    buffer.append("Utilities : ").append(res.getString(4)).append("\n");
-                                    buffer.append("Phone : ").append(res.getString(5)).append("\n");
-                                    buffer.append("Internet : ").append(res.getString(6)).append("\n");
-                                    buffer.append("Gym : ").append(res.getString(7)).append("\n");
-                                    buffer.append("Food : ").append(res.getString(8)).append("\n");
-                                    buffer.append("Gas : ").append(res.getString(9)).append("\n");
-                                    buffer.append("Insurance : ").append(res.getString(10)).append("\n");
-                                    buffer.append("Car Loan : ").append(res.getString(11)).append("\n");
-                                    buffer.append("Student Loan : ").append(res.getString(12)).append("\n");
-                                    buffer.append("Charity : ").append(res.getString(13)).append("\n");
-                                    buffer.append("Emergency Fund : ").append(res.getString(14)).append("\n");
-                                    buffer.append("Savings : ").append(res.getString(15)).append("\n");
+                                    buffer.append("UserID: ").append(res.getString(1)).append("\n");
+                                    buffer.append("Starting Income: ").append(res.getString(2)).append("\n");
+                                    buffer.append("Income: ").append(res.getString(3)).append("\n");
+                                    buffer.append("Rent : ").append(res.getString(4)).append("\n");
+                                    buffer.append("Utilities : ").append(res.getString(5)).append("\n");
+                                    buffer.append("Phone : ").append(res.getString(6)).append("\n");
+                                    buffer.append("Internet : ").append(res.getString(7)).append("\n");
+                                    buffer.append("Gym : ").append(res.getString(8)).append("\n");
+                                    buffer.append("Food : ").append(res.getString(9)).append("\n");
+                                    buffer.append("Gas : ").append(res.getString(10)).append("\n");
+                                    buffer.append("Insurance : ").append(res.getString(11)).append("\n");
+                                    buffer.append("Car Loan : ").append(res.getString(12)).append("\n");
+                                    buffer.append("Student Loan : ").append(res.getString(13)).append("\n");
+                                    buffer.append("Charity : ").append(res.getString(14)).append("\n");
+                                    buffer.append("Emergency Fund : ").append(res.getString(15)).append("\n");
+                                    buffer.append("Savings : ").append(res.getString(16)).append("\n");
                                 }
+                                buffer.append("UserEmail: " + userEmail);
 
                                 //this is also my TESTING
                                 AlertDialog.Builder detailsbuilder = new AlertDialog.Builder(BudgetItems.this);
