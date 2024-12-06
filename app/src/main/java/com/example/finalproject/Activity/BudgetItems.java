@@ -24,7 +24,7 @@ public class BudgetItems extends AppCompatActivity {
     String userID = auth.getCurrentUser().getUid();
     String userEmail = auth.getCurrentUser().getEmail();
 
-    EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings;
+    EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings, MoreIncome;
     TextView BudgetID;
     Button addButton, updateButton, refreshButton, viewButton, ADD;
 
@@ -65,6 +65,7 @@ public class BudgetItems extends AppCompatActivity {
         StudentLoan = findViewById(R.id.StudentLoan);
         EmergencyFund = findViewById(R.id.EmergencyFund);
         Savings = findViewById(R.id.Savings);
+        MoreIncome = findViewById(R.id.MoreIncome);
 
 
 
@@ -79,10 +80,14 @@ public class BudgetItems extends AppCompatActivity {
         String incomePresent = dbAssist.getStartingIncome(userID);
         if(incomePresent.isEmpty()){
             addButton.setEnabled(true);
+            Income.setFocusable(true);
+            MoreIncome.setFocusable(false);
         }
         else
         {
             addButton.setEnabled(false);
+            Income.setFocusable(false);
+            MoreIncome.setFocusable(true);
         };
 
         //user cannot update their budget unless they have added one before.
@@ -409,6 +414,7 @@ public class BudgetItems extends AppCompatActivity {
                 String CharityTXT = Charity.getText().toString();
                 String EmergencyFundTXT = EmergencyFund.getText().toString();
                 String SavingsTXT = Savings.getText().toString();
+                String MoreIncomeTXT = MoreIncome.getText().toString();
 
 
 
@@ -569,6 +575,14 @@ public class BudgetItems extends AppCompatActivity {
                 }
 
 
+                if(MoreIncomeTXT.isEmpty()) {
+                    MoreIncomeTXT = "0";
+                }
+                else
+                {
+                    MoreIncomeTXT = MoreIncome.getText().toString();
+                }
+
                 //now ensure that the values do not overexceed the income
                 //convert everything to double NOT USED YET
 
@@ -587,13 +601,18 @@ public class BudgetItems extends AppCompatActivity {
                 double charity = Double.parseDouble(CharityTXT);
                 double emergency = Double.parseDouble(EmergencyFundTXT);
                 double savings = Double.parseDouble(SavingsTXT);
+                double moreIncome = Double.parseDouble(MoreIncomeTXT);
+
+                double incomeFinal = income + moreIncome;
+                String incomeFinalString = String.valueOf(incomeFinal);
+
                 double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings;
                 if (total > income) {
                     Toast.makeText(BudgetItems.this, "Total exceeds income. Please adjust values and use zeros.", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     //if we are able to actually update the database without error then we are good.
-                    Boolean checkupdatedata = db.updateData(userID, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
+                    Boolean checkupdatedata = db.updateData(userID, incomeFinalString, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
                     //send a good message
                     if (checkupdatedata == true) {
                         Toast.makeText(BudgetItems.this, "Entry Updated ", Toast.LENGTH_SHORT).show();
@@ -721,6 +740,12 @@ public class BudgetItems extends AppCompatActivity {
 
         });
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
     }
 

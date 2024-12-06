@@ -54,4 +54,6 @@
     <string name="please_enter_your_savings_goal_for_this_month">Please enter your savings goal for this month!</string>
     <string name="add_goal">Add Goal</string>
     <string name="add_money">Add Money</string>
+    <string name="space" />
+    <string name="additional_income">Additional Income</string>
 </resources>

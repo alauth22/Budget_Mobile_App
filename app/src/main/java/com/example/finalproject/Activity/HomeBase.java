@@ -25,7 +25,9 @@ public class HomeBase extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String userID = auth.getCurrentUser().getUid();
-    TextView Income, Spent, Remaining;
+
+    String userEmail = auth.getCurrentUser().getEmail();
+    TextView Email, Remaining;
 
     private MediaPlayer sound1;
 
@@ -95,6 +97,10 @@ public class HomeBase extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        Email = findViewById(R.id.UserEmail);
+        Email.setText("Welcome: " + userEmail + "!");
 
 
 
