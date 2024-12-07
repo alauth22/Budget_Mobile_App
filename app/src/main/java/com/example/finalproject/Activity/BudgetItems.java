@@ -464,9 +464,7 @@ public class BudgetItems extends AppCompatActivity {
 
                 double moreIncome = parseDoubleOrZero(MoreIncomeTXT);
 
-                // Calculate final income and total expenses
-                double incomeFinal = income + moreIncome;
-                double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings;
+
 
                 double rentFINAL = rentCurrent + rent;
                 double utilitiesFINAL = utilitiesCurrent + utilities;
@@ -481,6 +479,11 @@ public class BudgetItems extends AppCompatActivity {
                 double charityFINAL = charityCurrent + charity;
                 double emergencyFINAL = emergencyCurrent + emergency;
                 double savingsFINAL = savingsCurrent + savings;
+
+                // Calculate final income and total expenses
+                double incomeFinal = income + moreIncome;
+                double total = rentFINAL + utilitiesFINAL + phoneFINAL + internetFINAL + gymFINAL + foodFINAL + gasFINAL
+                        + insuranceFINAL + carFINAL + studentFINAL + charityFINAL + emergencyFINAL + savingsFINAL;
 
                 // Check if total exceeds income
                 if (total > incomeFinal) {
