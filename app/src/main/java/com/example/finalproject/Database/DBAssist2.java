@@ -6,9 +6,7 @@ import android.widget.Toast;
 
 public class DBAssist2 {
 
-
     private DBHelper2 db;
-
     double currentIncome = 0;
 
 
