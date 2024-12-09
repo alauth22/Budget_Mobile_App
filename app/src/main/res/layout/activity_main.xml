@@ -5,18 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pinkbackground"
     tools:context=".Activity.MainActivity">
 
 
     <TextView
         android:id="@+id/textViewTitle2"
-        android:layout_width="371dp"
-        android:layout_height="54dp"
+        android:layout_width="364dp"
+        android:layout_height="101dp"
         android:fontFamily="monospace"
         android:gravity="center"
         android:text="@string/budgetbee"
-        android:textColor="#FF007F"
-        android:textSize="40sp"
+        android:textColor="#FF1493"
+        android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,18 +25,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.047" />
 
+
     <EditText
         android:id="@+id/emailEditText2"
         android:layout_width="281dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
+        android:inputType="textNoSuggestions"
         android:hint="@string/email"
-        android:inputType="textEmailAddress"
+        android:textStyle="bold"
+        android:importantForAutofill="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.428" />
+
 
     <TextView
         android:id="@+id/textView"
@@ -55,8 +60,9 @@
     <EditText
         android:id="@+id/passwordEditText2"
         android:layout_width="281dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:hint="@string/password"
+        android:textStyle="bold"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,9 +73,11 @@
 
     <Button
         android:id="@+id/loginButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="155dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#006400"
         android:text="@string/login"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -79,24 +87,28 @@
 
     <Button
         android:id="@+id/newuserButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register_an_account"
+        android:layout_width="208dp"
+        android:layout_height="67dp"
+        android:backgroundTint="#006400"
+        android:text="Register Account"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.793" />
+        app:layout_constraintVertical_bias="0.819" />
 
     <Button
         android:id="@+id/Crash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="104dp"
+        android:layout_height="66dp"
         android:text="Crash Test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.983"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.885" />
+        app:layout_constraintVertical_bias="0.975" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
