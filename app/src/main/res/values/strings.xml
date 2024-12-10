@@ -57,5 +57,7 @@
     <string name="space" />
     <string name="additional_income">Additional Income</string>
     <string name="spend">Spend</string>
+    <string name="canvas">Canvas</string>
+    <string name="back">Back</string>
 
 </resources>

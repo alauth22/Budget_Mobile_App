@@ -18,6 +18,7 @@ import com.example.finalproject.Animation.CircularAnimation;
 import com.example.finalproject.Database.DBAssist2;
 import com.example.finalproject.Database.DBHelper2;
 import com.example.finalproject.R;
+import com.example.finalproject.SignatureCanvas.Sign;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -31,7 +32,7 @@ public class HomeBase extends AppCompatActivity {
 
     private MediaPlayer sound1;
 
-    Button Home;
+    Button canvasTest;
 
     ImageView logout;
     DBAssist2 dbAssist;
@@ -101,6 +102,18 @@ public class HomeBase extends AppCompatActivity {
 
         Email = findViewById(R.id.UserEmail);
         Email.setText("Welcome: " + userEmail + "!");
+
+
+        canvasTest = findViewById(R.id.Canvas);
+        canvasTest.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              sound1.start();
+              Intent intent = new Intent(HomeBase.this, Sign.class);
+              startActivity(intent);
+
+          }
+      });
 
 
 
@@ -182,6 +195,9 @@ public class HomeBase extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(video, "Select Text Files"), SelectVideo);
 
     }
+
+
+
 
 
 }

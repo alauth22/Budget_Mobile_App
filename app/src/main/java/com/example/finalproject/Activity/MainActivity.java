@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText emailEditText;
     private EditText passwordEditText;
-    private Button loginButton, newuserButton, crashButton;
+    private Button loginButton, newuserButton;
 
 
 
@@ -40,11 +40,7 @@ public class MainActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText2);
         loginButton = findViewById(R.id.loginButton2);
         newuserButton = findViewById(R.id.newuserButton2);
-        crashButton = findViewById(R.id.Crash);
 
-        crashButton.setOnClickListener(v -> {
-            throw new RuntimeException("Test Crash"); // Force a crash
-                });
 
         // Set login button onClickListener
         loginButton.setOnClickListener(v -> {
