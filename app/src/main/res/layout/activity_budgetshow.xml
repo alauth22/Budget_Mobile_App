@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/greenbackground"
+    android:background="@drawable/pinkwatercolor"
     tools:context=".Activity.BudgetShow">
 
     <TextView
@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:contentDescription="TODO"
+        android:backgroundTint="#006400"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.887"

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/greenbackground"
+    android:background="@drawable/pinkwatercolor"
     tools:context=".Activity.BudgetItems">
 
 
@@ -26,16 +26,17 @@
         android:id="@+id/textView2"
         android:layout_width="174dp"
         android:layout_height="46dp"
+        android:gravity="center"
         android:text="@string/budget_items"
         android:textColor="#FF007F"
-        android:textSize="25sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintVertical_bias="0.017" />
 
     <Button
         android:id="@+id/View"
@@ -56,7 +57,7 @@
         android:layout_height="64dp"
         android:text="@string/refresh_budget"
         android:textSize="15sp"
-        android:backgroundTint="#FF007F"
+        android:backgroundTint="#006400"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.792"
@@ -70,7 +71,7 @@
         android:layout_height="64dp"
         android:text="@string/update_budget"
         android:textSize="15sp"
-        android:backgroundTint="#FF007F"
+        android:backgroundTint="#006400"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.156"
@@ -325,7 +326,7 @@
         android:layout_height="64dp"
         android:text="@string/add_new_budget"
         android:textSize="15sp"
-        android:backgroundTint="#FF007F"
+        android:backgroundTint="#006400"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.154"

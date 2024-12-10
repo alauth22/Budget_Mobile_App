@@ -59,5 +59,8 @@
     <string name="spend">Spend</string>
     <string name="canvas">Canvas</string>
     <string name="back">Back</string>
+    <string name="clear_signature">Clear Signature</string>
+    <string name="save_signature">Save Signature</string>
+    <string name="please_draw_your_signature">Please Draw Your Signature</string>
 
 </resources>

@@ -3,19 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/greenbackground"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/signatureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/please_draw_your_signature"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
 
     <com.example.finalproject.SignatureCanvas.SignatureView
         android:id="@+id/signatureView"
-        android:layout_width="347dp"
-        android:layout_height="588dp"
+        android:layout_width="378dp"
+        android:layout_height="323dp"
         android:background="#FFF" />
 
-    <!-- Add a button to clear the signature -->
     <Button
         android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clear Signature" />
+        android:text="@string/clear_signature" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_signature" />
 
 </LinearLayout>
