@@ -101,6 +101,7 @@ public class SignatureView extends View {
 
 
 
+    //we need this when the person will want to save their image. 
     public Bitmap getBitmap() {
         // Create a bitmap with the same width and height as the SignatureView
         //basically you NEED a bitmap for your view specifically
