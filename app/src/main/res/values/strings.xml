@@ -62,5 +62,9 @@
     <string name="clear_signature">Clear Signature</string>
     <string name="save_signature">Save Signature</string>
     <string name="please_draw_your_signature">Please Draw Your Signature</string>
+    <string name="favorite_budget_investment_videos">Favorite Budget/Investment Videos</string>
+    <string name="budget_101_dave_ramsey">Budget 101 - Dave Ramsey</string>
+    <string name="investing_101_vivian_tu">Investing 101 - Vivian Tu</string>
+    <string name="videos">Videos</string>
 
 </resources>

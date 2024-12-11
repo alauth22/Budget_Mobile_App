@@ -32,7 +32,8 @@ public class HomeBase extends AppCompatActivity {
 
     private MediaPlayer sound1;
 
-    Button canvasTest;
+
+    ImageView pencil, video;
 
     ImageView logout;
     DBAssist2 dbAssist;
@@ -104,8 +105,8 @@ public class HomeBase extends AppCompatActivity {
         Email.setText("Welcome: " + userEmail + "!");
 
 
-        canvasTest = findViewById(R.id.Canvas);
-        canvasTest.setOnClickListener(new View.OnClickListener() {
+        pencil = findViewById(R.id.pencil);
+        pencil.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               sound1.start();
@@ -115,6 +116,16 @@ public class HomeBase extends AppCompatActivity {
           }
       });
 
+
+        video = findViewById(R.id.video);
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sound1.start();
+                Intent intent = new Intent(HomeBase.this, Videos.class);
+                startActivity(intent);
+            }
+        });
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

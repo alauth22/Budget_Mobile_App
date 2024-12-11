@@ -14,11 +14,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.finalproject.Animation.RotateSideAnimate;
 import com.example.finalproject.R;
 
 import java.io.File;
@@ -40,6 +42,7 @@ public class Sign extends AppCompatActivity {
         signatureView = findViewById(R.id.signatureView);
         Button clearButton = findViewById(R.id.clearButton);
         Button saveButton = findViewById(R.id.saveButton);
+        ImageView arrow = findViewById(R.id.arrow6);
 
         //Clear the signature when the "Clear Signature" button is clicked
         clearButton.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +66,13 @@ public class Sign extends AppCompatActivity {
 
         });
 
+        arrow.setOnClickListener(v -> {
+            RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(arrow);
+            finish();
+        });
     }
+
+
 
     private void saveImageToDownloads(Bitmap bitmap) {
         //this I had to google so I got this from the internet.
