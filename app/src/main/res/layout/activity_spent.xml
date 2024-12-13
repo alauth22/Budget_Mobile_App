@@ -40,10 +40,10 @@
 
     <Button
         android:id="@+id/AddSpent"
-        android:layout_width="108dp"
-        android:layout_height="79dp"
+        android:layout_width="141dp"
+        android:layout_height="82dp"
         android:backgroundTint="#006400"
-        android:text="@string/add"
+        android:text="@string/spend2"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

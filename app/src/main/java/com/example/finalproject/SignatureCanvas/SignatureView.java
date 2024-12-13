@@ -9,55 +9,57 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
 
 //remember we're using the Android Canvas API here
-//so that will count towards working with an
 public class SignatureView extends View {
 
     //need to use paint here for the drawing of the signature.
     private Paint paint;
-
     //this is the Path class that will trace where the finger draws the signature
     private Path path;
-
     //here is my arrayList that will keep track of everywhere the user draws or the paths
     private List<Path> paths = new ArrayList<>();
 
     //class constructor
     public SignatureView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        initialize();
     }
 
     //initialize the paint and path
-    private void init() {
+    private void initialize() {
         paint = new Paint();
-        paint.setColor(Color.BLACK); // Signature color
+        //color of the signature
+        paint.setColor(Color.BLACK);
         paint.setAntiAlias(true);
-        paint.setStrokeWidth(8f); // Stroke width for the signature
-        paint.setStyle(Paint.Style.STROKE); // Only the stroke (no fill)
-        paint.setStrokeCap(Paint.Cap.ROUND); // Rounded edges for a smoother stroke
-        paint.setStrokeJoin(Paint.Join.ROUND); // Rounded joins for smoother lines
-        path = new Path(); // Initialize path for the first touch
+        //stroke width for the signature
+        paint.setStrokeWidth(8f);
+        //no fill in the stroke
+        paint.setStyle(Paint.Style.STROKE);
+        //rounded edges and joins
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        //I want to initialize path at the first touch
+        path = new Path();
     }
 
 
-    //onDraw here can count towards my custom view object
+    //onDraw to actually now draw the signature. Canvas is used.
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
 
-        // Draw all paths (multiple strokes from the user)
+        //draw all paths which will be each stroke the user draws.
         for (Path p : paths) {
-
-            //so for each path that the person's finger moves, draw it wtih all the draw requirements
+            //so for each path that the person's finger moves, draw it with all the draw requirements
             canvas.drawPath(p, paint);
         }
 
-        // Draw the current path (if the user is still drawing)
+        //draw the current path
         canvas.drawPath(path, paint);
     }
 
@@ -66,49 +68,58 @@ public class SignatureView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //these need to be datatypes of float for the built-in
-        //Path functions
+        //path functions - stackoverflow and geeksforgeeks all said you need floats for these.
         float PositionX = event.getX();
         float PositionY = event.getY();
 
         switch (event.getAction()) {
-
-            //when teh person first touches at any point in the screen and starts moving.
+            //when the  person first touches at any point in the screen and starts moving.
             case MotionEvent.ACTION_MOVE:
+                //document the moving position
                 path.lineTo(PositionX, PositionY);
                 break;
             case MotionEvent.ACTION_DOWN:
-                path = new Path(); // Start a new path for the new stroke
+                //start new path when the person touches the screen
+                path = new Path();
+                //document movements
                 path.moveTo(PositionX, PositionY);
                 break;
             case MotionEvent.ACTION_UP:
                 //so when the user lifts their finger up, we NEED the drawing to remain there.
                 //so we need to add the previously drawn paths to the arrayList
                 paths.add(path);
-                //now add a new path
-                path = new Path(); // Start a new path for the next stroke
+                //now add a new path if the user starts with an upward stroke
+                path = new Path();
+                //document movements
                 path.moveTo(PositionX, PositionY);
                 break;
         }
-        invalidate(); // Redraw the view after every touch event
+
+        //learned the hard way you need this to redraw the view after every touch event
+        invalidate();
+        //return true after this was a success.
         return true;
     }
 
-    // Optionally: Method to clear the signature
+    /*
+    Method to clear the signature.
+     */
     public void clearSignature() {
         paths.clear();
         invalidate(); // Redraw the view to clear the signature
     }
 
 
-
-    //we need this when the person will want to save their image. 
+    //we need this when the person will want to save their image. Bitmaps are important!
     public Bitmap getBitmap() {
-        // Create a bitmap with the same width and height as the SignatureView
+        //create a bitmap with the same width and height as the SignatureView for a pdf? It's simplier that way.
         //basically you NEED a bitmap for your view specifically
+        //stackoverflow helped with this.
         Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        // Create a canvas to draw on the bitmap (you need teh actual canvas)
+        //new canvas to draw on the bitmap
         Canvas canvas = new Canvas(bitmap);
-        // Draw the current view content onto the canvas (captures the signature)
+
+        //draw the current view content onto the canvas.
         draw(canvas);
         return bitmap;
     }

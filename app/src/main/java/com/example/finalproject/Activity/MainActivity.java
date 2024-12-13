@@ -17,11 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    //declare my variables
     private FirebaseAuth mAuth;
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton, newuserButton;
-
 
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
@@ -29,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
         //grabs the activity_main.xml where all the views are located.
         setContentView(R.layout.activity_main);
 
-        // Initialize FirebaseAuth
+        //Initialize FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
 
         //initialize my controls here and tie them to controls on the main activity
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText2);
         loginButton = findViewById(R.id.loginButton2);
         newuserButton = findViewById(R.id.newuserButton2);
-
 
         // Set login button onClickListener
         loginButton.setOnClickListener(v -> {
@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         //button used to register an account and is tied to the Firebase authentication account to this project
         newuserButton.setOnClickListener( v -> {
             String email = emailEditText.getText().toString();
             String password = passwordEditText.getText().toString();
 
+            //ensure both username and password are entered.
             if(email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(MainActivity.this, "Please enter both an email and a password", Toast.LENGTH_SHORT).show();
                 return;
@@ -88,24 +88,26 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
     }
 
 
-
-    //method to sign in the user in Firebase Authentication
+    /*
+    Method to sign in the user in Firebase Authentication
+     */
     private void signInWithEmail_Password(String email, String password) {
         //this is Firebase Authentication type
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        //if the sign in is successful
+                    if (task.isSuccessful())
+                    {
+                        //if the sign-in is successful
                         Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                         //go to the greeting activity and show the user
                         Intent intent = new Intent(MainActivity.this, HomeBase.class);
                         startActivity(intent);
 
-                    } else {
+                    } else
+                    {
                         //If sign in fails, display a message and do not show the user the greeting
                         Toast.makeText(MainActivity.this, "Authentication failed: " + task.getException().getMessage(),
                                 Toast.LENGTH_SHORT).show();
@@ -114,27 +116,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //method to add a new user to Firebase Authentication
+    /*
+    Method to add a new user to Firebase Authentication
+     */
     private void createUserWithEmail_Password(String email, String password) {
         //again use this method from Firebase Authentication to create a new user
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        //Sign in was a success
-                        Toast.makeText(MainActivity.this, "User created successfully!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, HomeBase.class);
-                        startActivity(intent);
+            .addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    //Sign in was a success
+                    Toast.makeText(MainActivity.this, "User created successfully!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, HomeBase.class);
+                    startActivity(intent);
 
-                    }
-                    else
-                    {
-                        //Sign in fails, display a message
-                        Toast.makeText(MainActivity.this, "Authentication failed: " + task.getException().getMessage(),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }
+                else
+                {
+                    //Sign in fails, display a message
+                    Toast.makeText(MainActivity.this, "Authentication failed: " + task.getException().getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
 
     }
-    
-
 }

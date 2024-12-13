@@ -1,8 +1,8 @@
 package com.example.finalproject.Activity;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -21,17 +21,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class BudgetItems extends AppCompatActivity {
 
+    //declare variables
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String userID = auth.getCurrentUser().getUid();
     String userEmail = auth.getCurrentUser().getEmail();
-
     EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings, MoreIncome;
     TextView BudgetID;
     Button addButton, updateButton, refreshButton, viewButton, ADD;
-
     DBHelper2 db;
-
     DBAssist2 dbAssist = new DBAssist2(this);
+
 
     @SuppressLint("CutPasteId")
     @Override
@@ -46,11 +45,9 @@ public class BudgetItems extends AppCompatActivity {
         //arrow icon
         ImageView arrow1 = findViewById(R.id.backArrow3);
         arrow1.setOnClickListener(v -> {
-            RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(arrow1);
+            new RotateSideAnimate(arrow1);
             finish();
         });
-
-        //because no buttons have been clicked on, we are going to automatically set the MoreIncome to disabled.
 
 
         //get my edit text fields
@@ -78,7 +75,7 @@ public class BudgetItems extends AppCompatActivity {
         addButton = findViewById(R.id.AddButton);
 
 
-        //these are my checks to ensure that the user cannot just click on buttons here and there.
+        //these are my checks to ensure that the user cannot just click on buttons anywhere
         String incomePresent = dbAssist.getIncome(userID);
         if(incomePresent.isEmpty()){
             addButton.setEnabled(true);
@@ -95,43 +92,7 @@ public class BudgetItems extends AppCompatActivity {
         };
 
 
-
-
-
-//        ADD.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                String IncomeTXT = Income.getText().toString();
-//                String RentTXT = Rent.getText().toString();
-//                String UtilitiesTXT = Utilities.getText().toString();
-//                String PhoneTXT = Phone.getText().toString();
-//                String InternetTXT = Internet.getText().toString();
-//                String GymTXT = Gym.getText().toString();
-//                String FoodTXT = Food.getText().toString();
-//                String GasTXT = Gas.getText().toString();
-//                String InsuranceTXT = Insurance.getText().toString();
-//                String CarLoanTXT = CarLoan.getText().toString();
-//                String StudentLoanTXT = StudentLoan.getText().toString();
-//                String CharityTXT = Charity.getText().toString();
-//                String EmergencyFundTXT = EmergencyFund.getText().toString();
-//                String SavingsTXT = Savings.getText().toString();
-//                Boolean checkinsertdata = db.insertData(IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
-//                if (checkinsertdata == true)
-//                {
-//                    Toast.makeText(BudgetItems.this, "New Entry ", Toast.LENGTH_SHORT).show();
-//                }
-//                else
-//                {
-//                    Toast.makeText(BudgetItems.this, "New Entry failed.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//        });
-
-
-
-
-        //add the new record now in the budget db.
+        //add the new record now in the budget db with the add click button.
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,8 +114,10 @@ public class BudgetItems extends AppCompatActivity {
                 String EmergencyFundTXT = EmergencyFund.getText().toString();
                 String SavingsTXT = Savings.getText().toString();
 
+                //if nothing has been entered for that column then set it to 0.
                 if (StartingIncomeTXT.isEmpty()) {
                     if (dbAssist.getIncome(userID).isEmpty()) {
+                        //if it is empty, set it automatically to zero.
                         StartingIncomeTXT = "0";
                     }
                     else
@@ -168,31 +131,41 @@ public class BudgetItems extends AppCompatActivity {
                 }
 
 
-                //income this is getting it
+                //income
+                //if it is left empty by user.
                 if (IncomeTXT.isEmpty()) {
-
+                    //check to see if db is empty
                     if (dbAssist.getIncome(userID).isEmpty()) {
+                        //if it is empty, set it automatically to zero.
                         IncomeTXT = "0";
 
-                    } else
+                    }
+                    else
                     {
+                        //get the pre-existing value from db
                         IncomeTXT = dbAssist.getIncome(userID);
                     }
 
                 }
                 else
                 {
+                    //if the edittext field is NOT empty, grab that value from the user.
                     IncomeTXT = Income.getText().toString();
                 }
+
 
                 //rent
                 if (RentTXT.isEmpty()) {
                     if (dbAssist.getRent(userID).isEmpty()) {
                         RentTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         RentTXT = dbAssist.getRent(userID);
                     }
-                } else {
+                }
+                else
+                {
                     RentTXT = Rent.getText().toString();
                 }
 
@@ -201,10 +174,14 @@ public class BudgetItems extends AppCompatActivity {
                 if (UtilitiesTXT.isEmpty()) {
                     if (dbAssist.getUtilities(userID).isEmpty()) {
                         UtilitiesTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         UtilitiesTXT = dbAssist.getUtilities(userID);
                     }
-                } else {
+                }
+                else
+                {
                     UtilitiesTXT = Utilities.getText().toString();
                 }
 
@@ -213,10 +190,14 @@ public class BudgetItems extends AppCompatActivity {
                 if (PhoneTXT.isEmpty()) {
                     if (dbAssist.getPhone(userID).isEmpty()) {
                         PhoneTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         PhoneTXT = dbAssist.getPhone(userID);
                     }
-                } else {
+                }
+                else
+                {
                     PhoneTXT = Phone.getText().toString();
                 }
 
@@ -224,10 +205,14 @@ public class BudgetItems extends AppCompatActivity {
                 if (InternetTXT.isEmpty()) {
                     if (dbAssist.getInternet(userID).isEmpty()) {
                         InternetTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         InternetTXT = dbAssist.getInternet(userID);
                     }
-                } else {
+                }
+                else
+                {
                     InternetTXT = Internet.getText().toString();
                 }
 
@@ -235,10 +220,14 @@ public class BudgetItems extends AppCompatActivity {
                 if (GymTXT.isEmpty()) {
                     if (dbAssist.getGym(userID).isEmpty()) {
                         GymTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         GymTXT = dbAssist.getGym(userID);
                     }
-                } else {
+                }
+                else
+                {
                     GymTXT = Gym.getText().toString();
                 }
 
@@ -246,30 +235,42 @@ public class BudgetItems extends AppCompatActivity {
                 if (FoodTXT.isEmpty()) {
                     if (dbAssist.getFood(userID).isEmpty()) {
                         FoodTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         FoodTXT = dbAssist.getFood(userID);
                     }
-                } else {
+                }
+                else
+                {
                     FoodTXT = Food.getText().toString();
                 }
 
                 if (GasTXT.isEmpty()) {
                     if (dbAssist.getGas(userID).isEmpty()) {
                         GasTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         GasTXT = dbAssist.getGas(userID);
                     }
-                } else {
+                }
+                else
+                {
                     GasTXT = Gas.getText().toString();
                 }
 
                 if (InsuranceTXT.isEmpty()) {
                     if (dbAssist.getInsurance(userID).isEmpty()) {
                         InsuranceTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         InsuranceTXT = dbAssist.getInsurance(userID);
                     }
-                } else {
+                }
+                else
+                {
                     InsuranceTXT = Insurance.getText().toString();
                 }
 
@@ -277,30 +278,42 @@ public class BudgetItems extends AppCompatActivity {
                 if (CarLoanTXT.isEmpty()) {
                     if (dbAssist.getCar(userID).isEmpty()) {
                         CarLoanTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         CarLoanTXT = dbAssist.getCar(userID);
                     }
-                } else {
+                }
+                else
+                {
                     CarLoanTXT = CarLoan.getText().toString();
                 }
 
                 if (StudentLoanTXT.isEmpty()) {
                     if (dbAssist.getStudent(userID).isEmpty()) {
                         StudentLoanTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         StudentLoanTXT = dbAssist.getStudent(userID);
                     }
-                } else {
+                }
+                else
+                {
                     StudentLoanTXT = StudentLoan.getText().toString();
                 }
 
                 if (CharityTXT.isEmpty()) {
                     if (dbAssist.getCharity(userID).isEmpty()) {
                         CharityTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         CharityTXT = dbAssist.getCharity(userID);
                     }
-                } else {
+                }
+                else
+                {
                     CharityTXT = Charity.getText().toString();
                 }
 
@@ -308,10 +321,14 @@ public class BudgetItems extends AppCompatActivity {
                 if (EmergencyFundTXT.isEmpty()) {
                     if (dbAssist.getEmergency(userID).isEmpty()) {
                         EmergencyFundTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         EmergencyFundTXT = dbAssist.getEmergency(userID);
                     }
-                } else {
+                }
+                else
+                {
                     EmergencyFundTXT = EmergencyFund.getText().toString();
                 }
 
@@ -319,20 +336,19 @@ public class BudgetItems extends AppCompatActivity {
                 if (SavingsTXT.isEmpty()) {
                     if (dbAssist.getSavings(userID).isEmpty()) {
                         SavingsTXT = "0";
-                    } else {
+                    }
+                    else
+                    {
                         SavingsTXT = dbAssist.getSavings(userID);
                     }
-                } else {
+                }
+                else
+                {
                     SavingsTXT = Savings.getText().toString();
                 }
 
 
-
-
-                //now ensure that the values do not overexceed the income
-                //convert everything to double NOT USED YET
-                double StartingIncome = Double.parseDouble(StartingIncomeTXT);
-                //maybe I should put these all into an array and do for loops later to clean it up.
+                //convert to double
                 double income = Double.parseDouble(IncomeTXT);
                 double rent = Double.parseDouble(RentTXT);
                 double utilities = Double.parseDouble(UtilitiesTXT);
@@ -348,17 +364,22 @@ public class BudgetItems extends AppCompatActivity {
                 double emergency = Double.parseDouble(EmergencyFundTXT);
                 double savings = Double.parseDouble(SavingsTXT);
 
-
+                //add total expenses
                 double total = rent + utilities + phone + internet + gym + food + gas + insurance + car + student + charity + emergency + savings;
+
+                //if the income equals 0 we need to have an income to even work
                 if (income == 0)
                 {
                     Toast.makeText(BudgetItems.this, "Please enter an income first to add a budget.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else if (total > income) {
+                //if the total exceeds the present income then send a message.
+                else if (total > income)
+                {
                     Toast.makeText(BudgetItems.this, "Expense total  of $ " + total + " exceeds your income of $" + income, Toast.LENGTH_LONG).show();
                     return;
                 }
+                //if the total does not equal the present income then send a message. This is when we cannot allocate the correct amount that will equal our budget.
                 else if (total != income)
                 {
                     Toast.makeText(BudgetItems.this, "Your expense total of $" + total + " does not equal your income of $" + income, Toast.LENGTH_LONG).show();
@@ -369,20 +390,21 @@ public class BudgetItems extends AppCompatActivity {
                     //we are inserting this now into the database
                     Boolean checkupdatedata = db.insertData(userID, StartingIncomeTXT, IncomeTXT, RentTXT, UtilitiesTXT, PhoneTXT, InternetTXT, GymTXT, FoodTXT, GasTXT, InsuranceTXT, CarLoanTXT, StudentLoanTXT, CharityTXT, EmergencyFundTXT, SavingsTXT);
                     //send a good message
-                    if (checkupdatedata == true) {
+                    if (checkupdatedata == true)
+                    {
                         Toast.makeText(BudgetItems.this, "Budget Added ", Toast.LENGTH_SHORT).show();
                     }
                     //else if it is not then send a bad message
-                    else {
+                    else
+                    {
                         Toast.makeText(BudgetItems.this, "Budget Not Added.", Toast.LENGTH_SHORT).show();
                     }
 
                 }
 
-                //disable the button after it's clicked
+                //disable add button and enable update button
                 addButton.setEnabled(false);
                 updateButton.setEnabled(true);
-
 
                 //immediately go to show activity
                finish();
@@ -398,8 +420,7 @@ public class BudgetItems extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // Fetch input values
-
+                //get the input values
                 String RentTXT = Rent.getText().toString();
                 String UtilitiesTXT = Utilities.getText().toString();
                 String PhoneTXT = Phone.getText().toString();
@@ -416,12 +437,12 @@ public class BudgetItems extends AppCompatActivity {
                 String MoreIncomeTXT = MoreIncome.getText().toString();
 
 
-                // Handle MoreIncome input
+                //handle MoreIncome input, this will be any additional income someone may have after a budget is created.
                 if (MoreIncomeTXT.isEmpty()) {
                     MoreIncomeTXT = "0";
                 }
 
-                // Convert final values to doubles
+                //convert final values to doubles, use the dbAssist methods to get those values for that userID.
                 double income = parseDoubleOrZero(dbAssist.getIncome(userID));
                 double rentCurrent = parseDoubleOrZero(dbAssist.getRent(userID));
                 double rent = parseDoubleOrZero(RentTXT);
@@ -465,7 +486,6 @@ public class BudgetItems extends AppCompatActivity {
                 double moreIncome = parseDoubleOrZero(MoreIncomeTXT);
 
 
-
                 double rentFINAL = rentCurrent + rent;
                 double utilitiesFINAL = utilitiesCurrent + utilities;
                 double phoneFINAL = phoneCurrent + phone;
@@ -480,43 +500,42 @@ public class BudgetItems extends AppCompatActivity {
                 double emergencyFINAL = emergencyCurrent + emergency;
                 double savingsFINAL = savingsCurrent + savings;
 
-                // Calculate final income and total expenses
+                //calculate final income and total expenses
                 double incomeFinal = income + moreIncome;
                 double total = rentFINAL + utilitiesFINAL + phoneFINAL + internetFINAL + gymFINAL + foodFINAL + gasFINAL
                         + insuranceFINAL + carFINAL + studentFINAL + charityFINAL + emergencyFINAL + savingsFINAL;
 
-                // Check if total exceeds income
+                //if the total exceeds income
                 if (total > incomeFinal) {
                     Toast.makeText(BudgetItems.this, "Total exceeds income. Please adjust values.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Update the database
+                //update the database with the proper database function
                 Boolean checkupdatedata = db.updateData(userID, String.valueOf(incomeFinal), String.valueOf(rentFINAL), String.valueOf(utilitiesFINAL), String.valueOf(phoneFINAL),
                         String.valueOf(internetFINAL), String.valueOf(gymFINAL), String.valueOf(foodFINAL), String.valueOf(gasFINAL), String.valueOf(insuranceFINAL),
                         String.valueOf(carFINAL), String.valueOf(studentFINAL), String.valueOf(charityFINAL), String.valueOf(emergencyFINAL), String.valueOf(savingsFINAL));
 
-                if (checkupdatedata) {
+                if (checkupdatedata)
+                {
                     Toast.makeText(BudgetItems.this, "Entry Updated", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else
+                {
                     Toast.makeText(BudgetItems.this, "Entry Not Updated", Toast.LENGTH_SHORT).show();
                 }
 
                 finish();
             }
 
-            // Helper methods
-            private String handleEmptyInput(String inputTXT, String dbValue) {
-                if (inputTXT.isEmpty()) {
-                    return dbValue.isEmpty() ? "0" : dbValue;
-                }
-                return inputTXT;
-            }
 
+            //helper method to convert string to double
             private double parseDoubleOrZero(String value) {
                 try {
                     return Double.parseDouble(value);
-                } catch (NumberFormatException e) {
+                }
+                catch
+                (NumberFormatException e) {
                     return 0;
                 }
             }
@@ -529,16 +548,17 @@ public class BudgetItems extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                //this is my alert message to ask the user if they indeed want to delete their budget.
                 AlertDialog.Builder builder = new AlertDialog.Builder(BudgetItems.this);
+
                 builder.setMessage("Are you sure want to reset all entries and begin a new budget?")
                         .setCancelable(false)
+                        //if yes then delete the database
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                // Proceed with the database action
+                                //call the delete function
                                 Boolean checkresetdata = db.deleteData(userID);
-
                                 if (checkresetdata == true) {
                                     Income.setText("");
                                     Rent.setText("");
@@ -555,19 +575,26 @@ public class BudgetItems extends AppCompatActivity {
                                     EmergencyFund.setText("");
                                     Savings.setText("");
                                     Toast.makeText(BudgetItems.this, "All Entries Are Reset!", Toast.LENGTH_SHORT).show();
-                                } else {
+                                }
+                                else
+                                {
                                     Toast.makeText(BudgetItems.this, "All Entries Are Not Reset!", Toast.LENGTH_SHORT).show();
 
                                 }
-                                //enable the button once we refresh the database.
+
+                                //enable the add button once we refresh the database.
                                 addButton.setEnabled(true);
+                                //disable the update button once we refresh the database.
                                 updateButton.setEnabled(false);
+                                //allow the user to set an income
                                 Income.setEnabled(true);
+                                //prevent them from setting a moreincome value
                                 MoreIncome.setEnabled(false);
 
                             }
 
                         })
+                        //if no then cancel the dialog and let the user continue
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -576,14 +603,8 @@ public class BudgetItems extends AppCompatActivity {
                         });
 
                 builder.show();
-
-
             }
         });
-
-
-
-
 
 
         //let's do practice sending a message when the button is clicked. YES or NO to proceed.
@@ -630,8 +651,6 @@ public class BudgetItems extends AppCompatActivity {
                                 detailsbuilder.setMessage(buffer.toString());
                                 detailsbuilder.show();
 
-
-
             }
 
         });
@@ -639,11 +658,11 @@ public class BudgetItems extends AppCompatActivity {
 
     }
 
+    //resume to where you last were when you return to the activity.
     @Override
     protected void onResume() {
         super.onResume();
 
     }
-
 
 }

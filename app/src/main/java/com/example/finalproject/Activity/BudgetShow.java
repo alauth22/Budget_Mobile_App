@@ -1,4 +1,5 @@
 package com.example.finalproject.Activity;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -12,7 +13,6 @@ import com.example.finalproject.Database.DBHelper2;
 import com.example.finalproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -21,13 +21,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class BudgetShow extends AppCompatActivity {
 
-
+    //declare variables.
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String userID = auth.getCurrentUser().getUid();
-
-    private MediaPlayer sound2;
-
-    private MediaPlayer sound3;
+    MediaPlayer sound2, sound3;
     TextView tv;
     ImageView arrow1;
     Button RefreshButton;
@@ -35,21 +32,7 @@ public class BudgetShow extends AppCompatActivity {
 
     String income;
    DBAssist2 dbAssist = new DBAssist2(this);
-
-    //RecyclerView recyclerView;
     FloatingActionButton fab1;
-
-    ImageView DollarSign;
-
-
-    //MyDatabaseHelper myDB;
-
-//    Intent intent = new Intent(BudgetShow.this, BudgetItems.class);
-//    startActivity(intent);
-
-
-    //ArrayList<Double> budgetID, income, rentArray, utilities, phone, internet, gym, foodArray, gasArray, insurance, car, student, charity, emergency, savings, retirement;
-
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -61,29 +44,27 @@ public class BudgetShow extends AppCompatActivity {
             //need to give the DBHelper the correct context.
             db = new DBHelper2(this);
 
+            //sounds for the buttons
             sound2 = MediaPlayer.create(this, R.raw.messageincoming);
             sound3 = MediaPlayer.create(this, R.raw.clickbutton);
 
+            //textview
             tv = findViewById(R.id.BudgetView);
 
             //code for arrow button
             arrow1 = findViewById(R.id.backArrow1);
-
             arrow1.setOnClickListener(v -> {
                 RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(arrow1);
                 finish();
                     });
 
-//            arrow1.setOnClickListener(v -> {
-//                finish();
-//            });
 
             //code for the floating action button to obtain the new budget
             fab1 = findViewById(R.id.BudgetAdd);
             fab1.setOnClickListener(view -> {
                 // Intent to open BudgetShow
                 sound2.start();
-                RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(fab1);
+                new RotateSideAnimate(fab1);
                 Intent intent2 = new Intent(BudgetShow.this, BudgetItems.class);
                 startActivity(intent2);
             });
@@ -100,14 +81,18 @@ public class BudgetShow extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //upon resuming to the page, show the updated budget by calling the updateBudget method.
         updateBudgetView(userID);
     }
 
 
+    /*
+    Method to update the budget view
+     */
     private void updateBudgetView(String userID) {
         StringBuilder sb = new StringBuilder();
 
-        // Fetch values from the database
+        //fetch values from the database by calling the methods from the DBAssist class
         String income = dbAssist.getIncome(userID);
         String rent = dbAssist.getRent(userID);
         String utilities = dbAssist.getUtilities(userID);
@@ -123,7 +108,7 @@ public class BudgetShow extends AppCompatActivity {
         String emergencyFund = dbAssist.getEmergency(userID);
         String savings = dbAssist.getSavings(userID);
 
-        // Append data to the StringBuilder
+        //append data to the StringBuilder
         sb.append("Income: $").append(income).append("\n\n");
         sb.append("Rent: $").append(rent).append("\n\n");
         sb.append("Utilities: $").append(utilities).append("\n\n");
@@ -139,8 +124,7 @@ public class BudgetShow extends AppCompatActivity {
         sb.append("Emergency Fund: $").append(emergencyFund).append("\n\n");
         sb.append("Savings: $").append(savings).append("\n\n");
 
-        // Update the TextView
+        //update the TextView using the updated stringbuilder
         tv.setText(sb.toString());
     }
-
 }

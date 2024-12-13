@@ -30,47 +30,48 @@
 
     <TextView
         android:id="@+id/videoText"
-        android:layout_width="289dp"
-        android:layout_height="51dp"
-        android:gravity="left"
+        android:layout_width="320dp"
+        android:layout_height="85dp"
+        android:gravity="center"
         android:text="@string/favorite_budget_investment_videos"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.593"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/videoText2"
+        android:layout_width="372dp"
+        android:layout_height="33dp"
+        android:gravity="left"
+        android:text="@string/budget_101_dave_ramsey"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.692"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <TextView
-        android:id="@+id/videoText2"
-        android:layout_width="226dp"
-        android:layout_height="31dp"
-        android:gravity="left"
-        android:text="@string/budget_101_dave_ramsey"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16" />
+        app:layout_constraintVertical_bias="0.157" />
 
     <TextView
         android:id="@+id/videoText3"
-        android:layout_width="222dp"
-        android:layout_height="27dp"
-        android:gravity="center"
+        android:layout_width="379dp"
+        android:layout_height="32dp"
+        android:gravity="left"
         android:text="@string/investing_101_vivian_tu"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.591" />
+        app:layout_constraintVertical_bias="0.602" />
 
     <ImageView
         android:id="@+id/backArrow5"

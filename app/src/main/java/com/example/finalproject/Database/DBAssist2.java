@@ -6,28 +6,25 @@ import android.widget.Toast;
 
 public class DBAssist2 {
 
+    //declare my variables
     private DBHelper2 db;
-    double currentIncome = 0;
 
-
-    //empty constructor
+    //class constructor
     public DBAssist2(Context context) {
-        // Initialize DBHelper with the provided context
+        //initialize DBHelper with the provided context
         db = new DBHelper2(context);
 
     }
 
-
-    //method to get the startingIncome value
     public String getStartingIncome(String userID) {
         String startingIncome = "";
         Cursor res = db.getData(userID);
         if (res != null && res.moveToNext()) {
+            //we know that in the database, starting income is at index of 2.
             startingIncome = res.getString(2);
         }
         return startingIncome;
     }
-
 
     public String getIncome(String userID) {
         String income = "";
@@ -39,8 +36,6 @@ public class DBAssist2 {
         return income;
     }
 
-
-
     public String getRent(String userID) {
         String rent = "";
         Cursor res = db.getData(userID);
@@ -50,7 +45,6 @@ public class DBAssist2 {
         return rent;
     }
 
-
     public String getUtilities(String userID) {
         String utilities = "";
         Cursor res = db.getData(userID);
@@ -58,9 +52,7 @@ public class DBAssist2 {
             utilities = res.getString(5);
         }
         return utilities;
-
     }
-
 
     public String getPhone(String userID) {
         String phone = "";
@@ -70,8 +62,6 @@ public class DBAssist2 {
         }
         return phone;
     }
-
-
 
     public String getInternet(String userID) {
         String internet = "";
@@ -97,10 +87,8 @@ public class DBAssist2 {
         if (res != null && res.moveToNext()) {
             food = res.getString(9);
         }
-
         return food;
     }
-
 
     public String getGas(String userID) {
         String gas = "";
@@ -111,7 +99,6 @@ public class DBAssist2 {
         return gas;
     }
 
-
     public String getInsurance(String userID) {
         String insurance = "";
         Cursor res = db.getData(userID);
@@ -120,7 +107,6 @@ public class DBAssist2 {
         }
         return insurance;
     }
-
 
     public String getCar(String userID) {
         String car = "";
@@ -131,7 +117,6 @@ public class DBAssist2 {
         return car;
     }
 
-
     public String getStudent(String userID) {
         String student = "";
         Cursor res = db.getData(userID);
@@ -140,7 +125,6 @@ public class DBAssist2 {
         }
         return student;
     }
-
 
     public String getCharity(String userID) {
         String charity = "";
@@ -170,8 +154,10 @@ public class DBAssist2 {
     }
 
 
-    //Now I want to be able to take whatever they select and the amount and subtract that from the Income
-    //first get the expense and the respective amount associated with it
+    /*
+    Now I want to be able to take whatever they select and the amount and subtract that from the Income
+    first get the expense and the respective amount associated with it
+     */
     public double getExpenseAllocatedAmount(String userID, String expense) {
         double allocatedAmount = 0;
 
@@ -223,16 +209,12 @@ public class DBAssist2 {
     }
 
 
-    //get the remaining amount after you spent and
+    //get the remaining income amount after you spent
     public double spendAmount(String userID, String expenseName, double amountToSpend, Context context) {
         //just grab the income
         double income = getIncome(userID).isEmpty() ? 0 : Double.parseDouble(getIncome(userID));
         //use the expense name to get the amount associated with it
         double expenseBudget = getExpenseAllocatedAmount(userID, expenseName);
-        //now subtract the amount spent from the income
-        double remainingAmount;
-        double defaultAmount = 0;
-
 
         // Check if the budget for this expense is already depleted
         if (expenseBudget <= 0) {
@@ -253,6 +235,4 @@ public class DBAssist2 {
         return income;
 
     }
-
-
 }

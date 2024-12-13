@@ -24,26 +24,19 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeBase extends AppCompatActivity {
 
+    //declare variables
     FirebaseAuth auth = FirebaseAuth.getInstance();
     String userID = auth.getCurrentUser().getUid();
-
     String userEmail = auth.getCurrentUser().getEmail();
     TextView Email, Remaining;
-
     private MediaPlayer sound1;
-
-
-    ImageView pencil, video;
-
-    ImageView logout;
+    ImageView pencil, video, logout;
     DBAssist2 dbAssist;
     DBHelper2 dbHelper;
 
     //SD DOWNLOADS
     private final int SelectVideo = 1;
-
     private CircularProgressIndicator circularProgressIndicator;
-    private int i = 0;
     private int progressValue;
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
@@ -55,15 +48,14 @@ public class HomeBase extends AppCompatActivity {
 
         dbAssist = new DBAssist2(this);
         dbHelper = new DBHelper2(this);
-
         sound1 = MediaPlayer.create(this, R.raw.dot);
-
         logout = findViewById(R.id.LogOUT2);
 
+        //logout button
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RotateSideAnimate rotateSideAnimate = new RotateSideAnimate(logout);
+                new RotateSideAnimate(logout);
                 Intent intent = new Intent(HomeBase.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -71,11 +63,11 @@ public class HomeBase extends AppCompatActivity {
 
 
         //find the actual button based off of it's ID from the activity_main
-        Button button = findViewById(R.id.Budget2);
+        Button budget = findViewById(R.id.Budget2);
         Remaining = findViewById(R.id.ViewRemaining2);
 
-
-        button.setOnClickListener(new View.OnClickListener() {
+        //budget button
+        budget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sound1.start();
@@ -85,7 +77,6 @@ public class HomeBase extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
 
         //spent button
@@ -101,10 +92,11 @@ public class HomeBase extends AppCompatActivity {
         });
 
 
+        //know which user logged in.
         Email = findViewById(R.id.UserEmail);
         Email.setText("Welcome: " + userEmail + "!");
 
-
+        //pencil icon to get you to the signature pad.
         pencil = findViewById(R.id.pencil);
         pencil.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -117,6 +109,7 @@ public class HomeBase extends AppCompatActivity {
       });
 
 
+        //video icon to get you to the video page.
         video = findViewById(R.id.video);
         video.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +127,7 @@ public class HomeBase extends AppCompatActivity {
             return insets;
         });
 
+        //get you to the SD card of emulator
         findViewById(R.id.sdDownloads2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,20 +139,13 @@ public class HomeBase extends AppCompatActivity {
 
     }
 
-
-
-    //REVIEW THIS CODE AGAIN BECAUSE IT WILL ALWAYS BE A 100% BECAUSE THE INCOME IS SEEN AS 100% AS IT CHANGES BECAUSE THERE IS NO COMPARISON.
-    //MAYBE SOMEHOW HAVE AN INTEGER VARIABLE BE EQUAL TO THE INCOME OR HAVE THEM PLUG IT IN.
-
+    //upon resuming to the page.
     @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
         super.onResume();
-        String updatedIncome = dbAssist.getIncome(userID); // Query the database for the income
+
         TextView incomeTextView = findViewById(R.id.ViewRemaining2);
-        //incomeTextView.setText("Income: $" + updatedIncome);
-
-
         //ok now we begin out work on the circular progress bar
         String incomeStartStr = dbAssist.getStartingIncome(userID);
         String incomeCurrentStr = dbAssist.getIncome(userID);
@@ -170,11 +157,14 @@ public class HomeBase extends AppCompatActivity {
         try {
             incomeStart = Double.parseDouble(incomeStartStr);
             incomeCurrent = Double.parseDouble(incomeCurrentStr);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e)
+        {
             //if there is somehow an invalid number format
             e.printStackTrace();
         }
 
+        //this will help us keep track of what value we are currently at for the progress bar.
         progressValue = 0;
 
         //so if the income start is greater than 0, because this is going to be based off of a 0 - 100 scale, we need to convert this to a percentage.
@@ -206,9 +196,5 @@ public class HomeBase extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(video, "Select Text Files"), SelectVideo);
 
     }
-
-
-
-
 
 }
