@@ -70,6 +70,7 @@ public class Sign extends AppCompatActivity {
 
     /*
     Save the images to downloads only when you have the right SDK version.
+    All snippets of code were resourced from StackOverFlow, GeeksforGeeks, and ChatGPT.
      */
     private void saveImageToDownloads(Bitmap bitmap) {
         //this I had to google so I got this from the internet.
@@ -105,8 +106,9 @@ public class Sign extends AppCompatActivity {
             uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
         }
 
-        //if the uri actually is NOT null
-        if (uri != null) {
+        //if the uri actually is NOT null (URI: Uniform Resource Identifier)
+        if (uri != null)
+        {
             //if you can open the outputstream or if it has something in it.
             try (OutputStream outputStream = resolver.openOutputStream(uri)) {
                 if (outputStream != null) {

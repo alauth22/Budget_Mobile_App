@@ -35,14 +35,14 @@ public class SignatureView extends View {
         paint = new Paint();
         //color of the signature
         paint.setColor(Color.BLACK);
-        paint.setAntiAlias(true);
-        //stroke width for the signature
-        paint.setStrokeWidth(8f);
         //no fill in the stroke
         paint.setStyle(Paint.Style.STROKE);
         //rounded edges and joins
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setAntiAlias(true);
+        //stroke width for the signature
+        paint.setStrokeWidth(8f);
         //I want to initialize path at the first touch
         path = new Path();
     }
@@ -59,7 +59,8 @@ public class SignatureView extends View {
             canvas.drawPath(p, paint);
         }
 
-        //draw the current path
+        //YOU NEED THIS IN ORDER TO SEE YOUR PATH IN REAL-TIME.
+        //Otherwise, you just see what you wrote after you flit up your finger or stop holding down your mouse.
         canvas.drawPath(path, paint);
     }
 
@@ -109,20 +110,18 @@ public class SignatureView extends View {
         invalidate(); // Redraw the view to clear the signature
     }
 
-
     //we need this when the person will want to save their image. Bitmaps are important!
     public Bitmap getBitmap() {
-        //create a bitmap with the same width and height as the SignatureView for a pdf? It's simplier that way.
+        //create a bitmap with the same width and height as the SignatureView for a pdf? It's more simple that way.
         //basically you NEED a bitmap for your view specifically
         //stackoverflow helped with this.
         Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         //new canvas to draw on the bitmap
         Canvas canvas = new Canvas(bitmap);
-
         //draw the current view content onto the canvas.
         draw(canvas);
+        //you're still returning the bitmap even after drawing it on the canvas. But you NEED TO SEND SOME DRAWING
         return bitmap;
     }
-
 
 }
