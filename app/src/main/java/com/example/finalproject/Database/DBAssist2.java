@@ -2,7 +2,6 @@ package com.example.finalproject.Database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.widget.Toast;
 
 public class DBAssist2 {
 
@@ -153,86 +152,4 @@ public class DBAssist2 {
         return savings;
     }
 
-
-    /*
-    Now I want to be able to take whatever they select and the amount and subtract that from the Income
-    first get the expense and the respective amount associated with it
-     */
-    public double getExpenseAllocatedAmount(String userID, String expense) {
-        double allocatedAmount = 0;
-
-        //no need to worry about non-zeros because in the database, it'll ensure a blank is 0.
-        switch (expense) {
-            case "Rent":
-                allocatedAmount = Double.parseDouble(getRent(userID));
-                break;
-            case "Utilities":
-                allocatedAmount = Double.parseDouble(getUtilities(userID));
-                break;
-            case "Phone":
-                allocatedAmount = Double.parseDouble(getPhone(userID));
-                break;
-            case "Internet":
-                allocatedAmount = Double.parseDouble(getInternet(userID));
-                break;
-            case "Gym":
-                allocatedAmount = Double.parseDouble(getGym(userID));
-                break;
-            case "Food":
-                allocatedAmount = Double.parseDouble(getFood(userID));
-                break;
-            case "Gas":
-                allocatedAmount = Double.parseDouble(getGas(userID));
-                break;
-            case "Insurance":
-                allocatedAmount = Double.parseDouble(getInsurance(userID));
-                break;
-            case "Car":
-                allocatedAmount = Double.parseDouble(getCar(userID));
-                break;
-            case "Student":
-                allocatedAmount = Double.parseDouble(getStudent(userID));
-                break;
-            case "Charity":
-                allocatedAmount = Double.parseDouble(getCharity(userID));
-                break;
-            case "Emergency":
-                allocatedAmount = Double.parseDouble(getEmergency(userID));
-                break;
-            case "Savings":
-                allocatedAmount = Double.parseDouble(getSavings(userID));
-                break;
-            default:
-                allocatedAmount = 0;
-        }
-        return allocatedAmount;
-    }
-
-
-    //get the remaining income amount after you spent
-    public double spendAmount(String userID, String expenseName, double amountToSpend, Context context) {
-        //just grab the income
-        double income = getIncome(userID).isEmpty() ? 0 : Double.parseDouble(getIncome(userID));
-        //use the expense name to get the amount associated with it
-        double expenseBudget = getExpenseAllocatedAmount(userID, expenseName);
-
-        // Check if the budget for this expense is already depleted
-        if (expenseBudget <= 0) {
-            Toast.makeText(context, "Budget for " + expenseName + " is fully spent or no money set aside for this expense!", Toast.LENGTH_SHORT).show();
-            return income; // Return the remaining income without changes
-        }
-
-        // Check if the amount to spend exceeds the allocated budget for this expense
-        if (amountToSpend > expenseBudget) {
-            Toast.makeText(context, "Not enough funds allocated for " + expenseName + "!", Toast.LENGTH_SHORT).show();
-            return income; // Return the remaining income without changes
-        }
-
-        // Deduct the amount to spend from the total income
-        //double remainingIncome = income - amountToSpend;
-        income = income - amountToSpend;
-
-        return income;
-
-    }
 }

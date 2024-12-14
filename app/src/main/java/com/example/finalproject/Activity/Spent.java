@@ -165,7 +165,7 @@ public class Spent extends AppCompatActivity {
                         expenseFinal.equals("Car Loan") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("CarLoan")),
                         expenseFinal.equals("Student Loan") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("StudentLoan")),
                         expenseFinal.equals("Charity") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Charity")),
-                        expenseFinal.equals(replaceSpace("Emergency Fund")) ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("EmergencyFund")),
+                        expenseFinal.equals("Emergency Fund") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("EmergencyFund")),
                         expenseFinal.equals("Savings") ? String.valueOf(categoryAmount) : cursor.getString(cursor.getColumnIndex("Savings"))
                 );
 
