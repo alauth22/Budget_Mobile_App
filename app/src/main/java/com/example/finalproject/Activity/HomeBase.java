@@ -17,7 +17,7 @@ import com.example.finalproject.Animation.RotateSideAnimate;
 import com.example.finalproject.Animation.CircularAnimation;
 import com.example.finalproject.Database.DBAssist2;
 import com.example.finalproject.Database.DBHelper2;
-import com.example.finalproject.GPS;
+import com.example.finalproject.GPS.GPS;
 import com.example.finalproject.R;
 import com.example.finalproject.SignatureCanvas.Sign;
 import com.google.android.material.progressindicator.CircularProgressIndicator;

@@ -1,18 +1,14 @@
-package com.example.finalproject;
+package com.example.finalproject.GPS;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.location.Location;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.Toast;
-
+import com.example.finalproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,7 +18,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.finalproject.databinding.ActivityGpsBinding;
-
 import java.util.List;
 
 public class GPS extends FragmentActivity implements OnMapReadyCallback {
@@ -114,45 +109,7 @@ public class GPS extends FragmentActivity implements OnMapReadyCallback {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
 
-//        //my button
-//        distance = findViewById(R.id.Distances);
-//        distance.setOnClickListener(v -> {
-//
-//            StringBuilder distanceInfo = new StringBuilder();
-//            //loop through the locations and calculate the distance from NWTC for each bank
-//            for (int i = 0; i < locations.size(); i++) {
-//                // Calculate the distance and round it to 2 decimal places
-//                double distance = calculateDistance(nwtc, locations.get(i));
-//                //I need it to round to 2 decimal places.
-//                String roundedDistance = String.format("%.2f", distance);
-//
-//                //because i know the names array list comes from the exact same data table as the locations, and it's in the same order,
-//                //I'm just going to index it with the same index as locations.
-//                distanceInfo.append(names.get(i))
-//                        .append(": ")
-//                        .append(roundedDistance)
-//                        .append(" miles.\n");
-//            }
-//
-//            //show distances in the alert dialog.
-//            new AlertDialog.Builder(this)
-//                    .setTitle("Distances from NWTC")
-//                    .setMessage(distanceInfo.toString())
-//                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-//                    .show();
-//
-//        });
-
-
     }
 
 
-    private double calculateDistance(LatLng a, LatLng b) {
-        //needs to be a float for the distanceBetween method to work
-        float[] distance = new float[1];
-        Location.distanceBetween(a.latitude, a.longitude, b.latitude, b.longitude, distance);
-        //convert meters to miles.
-        return distance[0] * 0.000621371;
-
-    }
 }
