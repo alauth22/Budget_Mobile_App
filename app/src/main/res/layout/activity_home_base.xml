@@ -157,7 +157,7 @@
         app:srcCompat="@drawable/baseline_video_library_24" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/map"
         android:layout_width="74dp"
         android:layout_height="64dp"
         app:layout_constraintBottom_toBottomOf="parent"

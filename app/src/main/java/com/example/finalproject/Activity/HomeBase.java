@@ -17,6 +17,7 @@ import com.example.finalproject.Animation.RotateSideAnimate;
 import com.example.finalproject.Animation.CircularAnimation;
 import com.example.finalproject.Database.DBAssist2;
 import com.example.finalproject.Database.DBHelper2;
+import com.example.finalproject.GPS;
 import com.example.finalproject.R;
 import com.example.finalproject.SignatureCanvas.Sign;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -30,7 +31,7 @@ public class HomeBase extends AppCompatActivity {
     String userEmail = auth.getCurrentUser().getEmail();
     TextView Email, Remaining;
     private MediaPlayer sound1;
-    ImageView pencil, video, logout;
+    ImageView pencil, video, logout, map;
     DBAssist2 dbAssist;
     DBHelper2 dbHelper;
 
@@ -107,6 +108,17 @@ public class HomeBase extends AppCompatActivity {
 
           }
       });
+
+
+        map = findViewById(R.id.map);
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sound1.start();
+                Intent intent = new Intent(HomeBase.this, GPS.class);
+                startActivity(intent);
+            }
+        });
 
 
         //video icon to get you to the video page.

@@ -67,5 +67,6 @@
     <string name="investing_101_vivian_tu">Investing 101 - Vivian Tu</string>
     <string name="videos">Videos</string>
     <string name="spend2">Spend</string>
+    <string name="title_activity_gps">gps</string>
 
 </resources>
