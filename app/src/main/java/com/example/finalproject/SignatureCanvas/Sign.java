@@ -86,6 +86,7 @@ public class Sign extends AppCompatActivity {
 
     /*
     You need this method to save the image to the downloads folder.
+    It involves setting up metadata so this was mostly guided tutorials, stackoverflow, and other resources.
      */
     private void saveImageWithMediaStore(Bitmap bitmap) {
 
@@ -98,7 +99,7 @@ public class Sign extends AppCompatActivity {
 
 
         /*
-        gets content and inserts it into the MediaStore on the emulator
+        gets content and inserts the metadata into the MediaStore on the emulator
          */
         ContentResolver resolver = getContentResolver();
         Uri uri = null;
@@ -106,7 +107,8 @@ public class Sign extends AppCompatActivity {
             uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
         }
 
-        //if the uri actually is NOT null (URI: Uniform Resource Identifier)
+        //if the uri actually is NOT null (URI: Uniform Resource Identifier) or file creation.
+        //write the bitmap to the file.
         if (uri != null)
         {
             //if you can open the outputstream or if it has something in it.

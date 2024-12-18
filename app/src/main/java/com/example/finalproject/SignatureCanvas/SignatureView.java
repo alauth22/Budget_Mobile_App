@@ -56,11 +56,13 @@ public class SignatureView extends View {
         //draw all paths which will be each stroke the user draws.
         for (Path p : paths) {
             //so for each path that the person's finger moves, draw it with all the draw requirements
+            //so you are drawing each stored path onto the canvas.
             canvas.drawPath(p, paint);
         }
 
         //YOU NEED THIS IN ORDER TO SEE YOUR PATH IN REAL-TIME.
         //Otherwise, you just see what you wrote after you flit up your finger or stop holding down your mouse.
+       //ensures that the current stroke is visible on the screen WHILE THE USER is drawing the stroke.
         canvas.drawPath(path, paint);
     }
 
@@ -110,15 +112,16 @@ public class SignatureView extends View {
         invalidate(); // Redraw the view to clear the signature
     }
 
-    //we need this when the person will want to save their image. Bitmaps are important!
+    //we need this when the person will want to save their image. Bitmaps are important for drawable images.
+    //you need a bitmap representation of the current view which you can then save.
     public Bitmap getBitmap() {
         //create a bitmap with the same width and height as the SignatureView for a pdf? It's more simple that way.
         //basically you NEED a bitmap for your view specifically
-        //stackoverflow helped with this.
+        //stackoverflow helped with this. -> create a blank bitmap
         Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        //new canvas to draw on the bitmap
+        //new canvas to draw on the bitmap -> associate the bitmap with canvas to get an image.
         Canvas canvas = new Canvas(bitmap);
-        //draw the current view content onto the canvas.
+        //draw the current view content onto the canvas. -> invokes the onDraw method and copies the visual to the bitmap.
         draw(canvas);
         //you're still returning the bitmap even after drawing it on the canvas. But you NEED TO SEND SOME DRAWING
         return bitmap;

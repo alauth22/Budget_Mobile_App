@@ -71,7 +71,6 @@ public class BudgetItems extends AppCompatActivity {
         //my buttons
         updateButton = findViewById(R.id.Update);
         refreshButton = findViewById(R.id.Refresh);
-        viewButton = findViewById(R.id.View);
         addButton = findViewById(R.id.AddButton);
 
 

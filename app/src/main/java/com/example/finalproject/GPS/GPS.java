@@ -87,13 +87,15 @@ public class GPS extends FragmentActivity implements OnMapReadyCallback {
                 String service = helper.getServices(ids.get(i)).toString();
 
 
-                //get my BitmapDrawable ready to scale down my downloaded icon.
+                //get my BitmapDrawable ready to scale down my downloaded icon. so we need to access the resource, and a
+                //bitmap because it is a drawable object on the screen.
                 BitmapDrawable bp = (BitmapDrawable) getResources().getDrawable(R.drawable.icon);
-                //get my bitmap from the drawable
+                //get my bitmap from the drawable (extract it)
                 Bitmap b = bp.getBitmap();
-                //scale the bitmap down to a smaller size
+                //scale the bitmap down to a smaller size, using the Bitmap method
                 Bitmap smallIcon = Bitmap.createScaledBitmap(b, 100, 100, false);
                 //set it equal to a smaller marker
+                //BitmapDescriptor is used by the Google Maps API to represent the bitmap image.
                 BitmapDescriptor smallMarker = BitmapDescriptorFactory.fromBitmap(smallIcon);
 
                 //now ensure that you get each position, name, and label the corresponding service, and add the marker.
