@@ -27,7 +27,7 @@ public class BudgetItems extends AppCompatActivity {
     String userEmail = auth.getCurrentUser().getEmail();
     EditText  Income, Rent, Utilities, Phone, Internet, Gym, Food, Gas, Insurance, CarLoan, StudentLoan, Charity, EmergencyFund, Savings, MoreIncome;
     TextView BudgetID;
-    Button addButton, updateButton, refreshButton, viewButton, ADD;
+    Button addButton, updateButton, refreshButton, viewButton;
     DBHelper2 db;
     DBAssist2 dbAssist = new DBAssist2(this);
 
@@ -605,56 +605,6 @@ public class BudgetItems extends AppCompatActivity {
                 builder.show();
             }
         });
-
-
-        //let's do practice sending a message when the button is clicked. YES or NO to proceed.
-        //THIS WILL NOT STAY THIS IS MY TEST!!!!
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                //sendDBValuesToAnotherActivity();
-
-                                // Proceed with the database action
-                                Cursor res = db.getData(userID);
-                                if (res.getCount() == 0) {
-                                    Toast.makeText(BudgetItems.this, "No entry exists", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                StringBuilder buffer = new StringBuilder();
-                                while (res.moveToNext()) {
-                                    //this is my check to ensure I am only using 1 ID.
-                                    buffer.append("ID: ").append(res.getString(0)).append("\n");
-                                    buffer.append("UserID: ").append(res.getString(1)).append("\n");
-                                    buffer.append("Starting Income: ").append(res.getString(2)).append("\n");
-                                    buffer.append("Income: ").append(res.getString(3)).append("\n");
-                                    buffer.append("Rent : ").append(res.getString(4)).append("\n");
-                                    buffer.append("Utilities : ").append(res.getString(5)).append("\n");
-                                    buffer.append("Phone : ").append(res.getString(6)).append("\n");
-                                    buffer.append("Internet : ").append(res.getString(7)).append("\n");
-                                    buffer.append("Gym : ").append(res.getString(8)).append("\n");
-                                    buffer.append("Food : ").append(res.getString(9)).append("\n");
-                                    buffer.append("Gas : ").append(res.getString(10)).append("\n");
-                                    buffer.append("Insurance : ").append(res.getString(11)).append("\n");
-                                    buffer.append("Car Loan : ").append(res.getString(12)).append("\n");
-                                    buffer.append("Student Loan : ").append(res.getString(13)).append("\n");
-                                    buffer.append("Charity : ").append(res.getString(14)).append("\n");
-                                    buffer.append("Emergency Fund : ").append(res.getString(15)).append("\n");
-                                    buffer.append("Savings : ").append(res.getString(16)).append("\n");
-                                }
-                                buffer.append("UserEmail: " + userEmail);
-
-                                //this is also my TESTING
-                                AlertDialog.Builder detailsbuilder = new AlertDialog.Builder(BudgetItems.this);
-                                detailsbuilder.setCancelable(true);
-                                detailsbuilder.setTitle("User Details");
-                                detailsbuilder.setMessage(buffer.toString());
-                                detailsbuilder.show();
-
-            }
-
-        });
-
 
     }
 
